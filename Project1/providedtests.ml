@@ -10,7 +10,7 @@ let provided_tests : suite = [
   Test ("Student-Provided Tests For Problem 1-3", [
     ("case1", assert_eqf (fun () -> 42) prob3_ans );
     ("case2", assert_eqf (fun () -> 42 - 17) (prob3_case2 17) );
-    ("case3", assert_eqf (fun () -> prob3_case3) 20);
+    ("case3", assert_eqf (fun () -> prob3_case3) (double (prob3_case2 10)));
   ]);
   
 ] 
