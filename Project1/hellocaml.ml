@@ -962,7 +962,10 @@ let ctxt2 : ctxt = [("x", 2L); ("y", 7L)]  (* maps "x" to 2L, "y" to 7L *)
   such value, it should raise the Not_found exception.
 *)
 let rec lookup (x:string) (c:ctxt) : int64 =
-  failwith "unimplemented"
+  match x, c with 
+  | _, [] -> raise Not_found
+  | _, (v, fv)::tl -> if x = v then fv else (lookup x tl) 
+  
 
 
 (*
@@ -989,7 +992,13 @@ let rec lookup (x:string) (c:ctxt) : int64 =
 *)
 
 let rec interpret (c:ctxt) (e:exp) : int64 =
-  failwith "unimplemented"
+  match e with
+  | Var x -> lookup x c 
+  | Const v -> v
+  | Add (e1, e2) ->  Int64.add (interpret c e1) (interpret c e2)
+  | Mult (e1, e2) ->  Int64.mul (interpret c e1) (interpret c e2)
+  | Neg e1 -> Int64.neg (interpret c e1)
+  
 
 
 (*
@@ -1035,8 +1044,43 @@ let rec interpret (c:ctxt) (e:exp) : int64 =
 *)
 
 let rec optimize (e:exp) : exp =
-  failwith "optimize unimplemented"
-
+  match e with
+  | Var _ -> e
+  | Const _ -> e
+  | Add (Const x, Const y) -> Const (Int64.add x y)
+  | Mult (Const x, Const y) -> Const (Int64.mul x y)
+  | Add (Const 0L, e1) -> optimize e1
+  | Add (e1, Const 0L) -> optimize e1
+  | Mult (Const 0L, _) -> Const 0L
+  | Mult (_, Const 0L) -> Const 0L
+  | Mult (Const 1L, e1) -> optimize e1
+  | Mult (e1, Const 1L) -> optimize e1
+  | Mult (Neg e1, Neg e2) -> Mult (optimize e1, optimize e2)
+  | Neg (Neg e1) -> optimize e1
+  | Neg (Const 0L) -> Const 0L
+  | Add (e1, e2) -> let e1_opt = optimize e1 in begin
+                      let e2_opt = optimize e2 in begin
+                        match e1_opt, e2_opt with
+                        | Const x, Const y -> Const (Int64.add x y)
+                        | Const 0L, _ -> e2_opt
+                        | _, Const 0L -> e1_opt
+                        | _, _ -> Add (e1_opt, e2_opt)
+                      end 
+                    end
+  | Mult (e1, e2) -> let e1_opt = optimize e1 in begin
+                      let e2_opt = optimize e2 in begin
+                        match e1_opt, e2_opt with
+                        | Const x, Const y -> Const (Int64.mul x y)
+                        | Const 0L, _ -> Const 0L 
+                        | _, Const 0L -> Const 0L
+                        | _, _ -> Mult (e1_opt, e2_opt)
+                      end 
+                    end
+  | Neg e1 -> let e1_opt = optimize e1 in begin
+                match e1_opt with
+                | Const 0L -> Const 0L
+                | _ -> Neg e1_opt 
+              end
 
 (******************************************************************************)
 (*                                                                            *)
