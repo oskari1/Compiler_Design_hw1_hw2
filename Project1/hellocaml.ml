@@ -1073,6 +1073,8 @@ let rec optimize (e:exp) : exp =
                         | Const x, Const y -> Const (Int64.mul x y)
                         | Const 0L, _ -> Const 0L 
                         | _, Const 0L -> Const 0L
+                        | Const 1L, _ -> e2_opt
+                        | _, Const 1L -> e1_opt
                         | _, _ -> Mult (e1_opt, e2_opt)
                       end 
                     end
