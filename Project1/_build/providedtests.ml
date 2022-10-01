@@ -13,7 +13,12 @@ let provided_tests : suite = [
     ("case3", assert_eqf (fun () -> prob3_case3) (double (prob3_case2 10)));
   ]);
 
-  GradedTest ("Student-Provided Tests for Problem 4-5", 8, [
+  GradedTest ("Student-Provided Tests For Problem 4-4", 5, [
+    ("interpret1", assert_eqf (fun () -> interpret ctxt2 (Add (Mult (Const 3L, Add (Var "x", Var "y")), Mult (Const 0L, Var "x")))) 27L);
+    ("interpret2", (fun () -> try ignore (interpret ctxt2 (Mult (Add (Var "x", Var "z"), Var "y"))); failwith "bad interpret" with Not_found -> ()))
+  ]);
+
+  GradedTest ("Student-Provided Tests For Problem 4-5", 8, [
     ("optimize1", assert_eqf (fun () -> optimize (Mult (Add (Const 1L, Const 2L), Mult (Const 3L, Const 7L)))) (Const 63L));
     ("optimize2", assert_eqf (fun () -> optimize (Add (Neg (Const 0L), 
                                                        Add (

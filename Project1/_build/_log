@@ -18,7 +18,7 @@
 # Target: providedtests.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:providedtests.cmo, file:providedtests.ml, implem, ocaml, quiet }
 /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -c -I util -o providedtests.cmo providedtests.ml
 # Target: main.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:main.cmo, file:main.ml, implem, ocaml, quiet }
-/Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -c -I util -o main.cmo main.ml # cached
+/Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -c -I util -o main.cmo main.ml
 # Target: util/assert.cmx, tags: { compile, extension:cmx, extension:ml, file:util/assert.cmx, file:util/assert.ml, implem, native, ocaml, quiet }
 /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -c -I util -o util/assert.cmx util/assert.ml # cached
 # Target: hellocaml.cmx, tags: { compile, extension:cmx, extension:ml, file:hellocaml.cmx, file:hellocaml.ml, implem, native, ocaml, quiet }
