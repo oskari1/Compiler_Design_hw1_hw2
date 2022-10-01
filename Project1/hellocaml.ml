@@ -1047,17 +1047,6 @@ let rec optimize (e:exp) : exp =
   match e with
   | Var _ -> e
   | Const _ -> e
-  | Add (Const x, Const y) -> Const (Int64.add x y)
-  | Mult (Const x, Const y) -> Const (Int64.mul x y)
-  | Add (Const 0L, e1) -> optimize e1
-  | Add (e1, Const 0L) -> optimize e1
-  | Mult (Const 0L, _) -> Const 0L
-  | Mult (_, Const 0L) -> Const 0L
-  | Mult (Const 1L, e1) -> optimize e1
-  | Mult (e1, Const 1L) -> optimize e1
-  | Mult (Neg e1, Neg e2) -> Mult (optimize e1, optimize e2)
-  | Neg (Neg e1) -> optimize e1
-  | Neg (Const 0L) -> Const 0L
   | Add (e1, e2) -> let e1_opt = optimize e1 in begin
                       let e2_opt = optimize e2 in begin
                         match e1_opt, e2_opt with
@@ -1075,11 +1064,13 @@ let rec optimize (e:exp) : exp =
                         | _, Const 0L -> Const 0L
                         | Const 1L, _ -> e2_opt
                         | _, Const 1L -> e1_opt
+                        | Neg e', Neg e'' -> Mult (e', e'')
                         | _, _ -> Mult (e1_opt, e2_opt)
                       end 
                     end
   | Neg e1 -> let e1_opt = optimize e1 in begin
                 match e1_opt with
+                | Neg e' -> e'
                 | Const 0L -> Const 0L
                 | _ -> Neg e1_opt 
               end
