@@ -28,7 +28,7 @@
 # Target: providedtests.cmx, tags: { compile, extension:cmx, extension:ml, file:providedtests.cmx, file:providedtests.ml, implem, native, ocaml, quiet }
 /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -c -I util -o providedtests.cmx providedtests.ml
 # Target: main.cmx, tags: { compile, extension:cmx, extension:ml, file:main.cmx, file:main.ml, implem, native, ocaml, quiet }
-/Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -c -I util -o main.cmx main.ml # cached
+/Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -c -I util -o main.cmx main.ml
 # Target: main.native, tags: { dont_link_with, extension:native, file:main.native, link, native, ocaml, program, quiet }
 /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt unix.cmxa str.cmxa -I util hellocaml.cmx util/assert.cmx gradedtests.cmx providedtests.cmx main.cmx -o main.native
 # Compilation successful.

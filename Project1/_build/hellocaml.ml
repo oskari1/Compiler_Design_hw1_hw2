@@ -1053,6 +1053,7 @@ let rec optimize (e:exp) : exp =
                         | Const x, Const y -> Const (Int64.add x y)
                         | Const 0L, _ -> e2_opt
                         | _, Const 0L -> e1_opt
+                        | Var v, Neg (Var w) -> if v = w then Const 0L else Add(e1_opt, e2_opt)
                         | _, _ -> Add (e1_opt, e2_opt)
                       end 
                     end
