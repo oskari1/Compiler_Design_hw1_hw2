@@ -3,7 +3,7 @@
 # Shared cache: disabled
 # Workspace root: /Users/ojyrkinen/Compiler_Design/Project2/hw2
 # Auto-detected concurrency: 8
-$ /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -config > /var/folders/xn/27gmfwp50gz7lt1pd7wmgvhm0000gn/T/dune_75bd1e_output
+$ /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -config > /var/folders/xn/27gmfwp50gz7lt1pd7wmgvhm0000gn/T/dune_c26d6b_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -133,55 +133,34 @@ $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5.
 > 123 |     | o -> ()
 >             ^
 > Warning 27 [unused-var-strict]: unused variable o.
-> File "simulator.ml", line 146, characters 16-18:
-> 146 | let interp_cnd {fo; fs; fz} : cnd -> bool = fun x -> failwith "interp_cnd unimplemented"
->                       ^^
-> Warning 27 [unused-var-strict]: unused variable fo.
-> File "simulator.ml", line 146, characters 20-22:
-> 146 | let interp_cnd {fo; fs; fz} : cnd -> bool = fun x -> failwith "interp_cnd unimplemented"
->                           ^^
-> Warning 27 [unused-var-strict]: unused variable fs.
-> File "simulator.ml", line 146, characters 24-26:
-> 146 | let interp_cnd {fo; fs; fz} : cnd -> bool = fun x -> failwith "interp_cnd unimplemented"
->                               ^^
-> Warning 27 [unused-var-strict]: unused variable fz.
-> File "simulator.ml", line 146, characters 48-49:
-> 146 | let interp_cnd {fo; fs; fz} : cnd -> bool = fun x -> failwith "interp_cnd unimplemented"
->                                                       ^
-> Warning 27 [unused-var-strict]: unused variable x.
-> File "simulator.ml", line 150, characters 14-18:
-> 150 | let map_addr (addr:quad) : int option =
->                     ^^^^
-> Warning 27 [unused-var-strict]: unused variable addr.
-> File "simulator.ml", line 160, characters 10-11:
-> 160 | let step (m:mach) : unit =
+> File "simulator.ml", line 168, characters 10-11:
+> 168 | let step (m:mach) : unit =
 >                 ^
 > Warning 27 [unused-var-strict]: unused variable m.
-> File "simulator.ml", line 200, characters 14-15:
-> 200 | let assemble (p:prog) : exec =
+> File "simulator.ml", line 208, characters 14-15:
+> 208 | let assemble (p:prog) : exec =
 >                     ^
 > Warning 27 [unused-var-strict]: unused variable p.
-> File "simulator.ml", line 216, characters 10-15:
-> 216 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
+> File "simulator.ml", line 224, characters 10-15:
+> 224 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
 >                 ^^^^^
 > Warning 27 [unused-var-strict]: unused variable entry.
-> File "simulator.ml", line 216, characters 17-25:
-> 216 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
+> File "simulator.ml", line 224, characters 17-25:
+> 224 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
 >                        ^^^^^^^^
 > Warning 27 [unused-var-strict]: unused variable text_pos.
-> File "simulator.ml", line 216, characters 27-35:
-> 216 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
+> File "simulator.ml", line 224, characters 27-35:
+> 224 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
 >                                  ^^^^^^^^
 > Warning 27 [unused-var-strict]: unused variable data_pos.
-> File "simulator.ml", line 216, characters 37-45:
-> 216 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
+> File "simulator.ml", line 224, characters 37-45:
+> 224 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
 >                                            ^^^^^^^^
 > Warning 27 [unused-var-strict]: unused variable text_seg.
-> File "simulator.ml", line 216, characters 47-55:
-> 216 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
+> File "simulator.ml", line 224, characters 47-55:
+> 224 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
 >                                                      ^^^^^^^^
 > Warning 27 [unused-var-strict]: unused variable data_seg.
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml-gen -no-alias-deps -opaque -o .main.eobjs/native/dune__exe.cmx -c -impl .main.eobjs/dune__exe.ml-gen)
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Studenttests.cmo -c -impl studenttests.ml)
 > File "studenttests.ml", line 2, characters 0-8:
 > 2 | open X86
@@ -191,6 +170,7 @@ $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5.
 > 3 | open Simulator
 >     ^^^^^^^^^^^^^^
 > Warning 33 [unused-open]: unused open Dune__exe.Simulator.
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml-gen -no-alias-deps -opaque -o .main.eobjs/native/dune__exe.cmx -c -impl .main.eobjs/dune__exe.ml-gen)
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Assert.cmx -c -impl util/assert.ml)
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__X86.cmx -c -impl x86/x86.ml)
 > File "x86/x86.ml", line 130, characters 10-11:
@@ -206,63 +186,34 @@ $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@
 > 123 |     | o -> ()
 >             ^
 > Warning 27 [unused-var-strict]: unused variable o.
-> File "simulator.ml", line 146, characters 16-18:
-> 146 | let interp_cnd {fo; fs; fz} : cnd -> bool = fun x -> failwith "interp_cnd unimplemented"
->                       ^^
-> Warning 27 [unused-var-strict]: unused variable fo.
-> File "simulator.ml", line 146, characters 20-22:
-> 146 | let interp_cnd {fo; fs; fz} : cnd -> bool = fun x -> failwith "interp_cnd unimplemented"
->                           ^^
-> Warning 27 [unused-var-strict]: unused variable fs.
-> File "simulator.ml", line 146, characters 24-26:
-> 146 | let interp_cnd {fo; fs; fz} : cnd -> bool = fun x -> failwith "interp_cnd unimplemented"
->                               ^^
-> Warning 27 [unused-var-strict]: unused variable fz.
-> File "simulator.ml", line 146, characters 48-49:
-> 146 | let interp_cnd {fo; fs; fz} : cnd -> bool = fun x -> failwith "interp_cnd unimplemented"
->                                                       ^
-> Warning 27 [unused-var-strict]: unused variable x.
-> File "simulator.ml", line 150, characters 14-18:
-> 150 | let map_addr (addr:quad) : int option =
->                     ^^^^
-> Warning 27 [unused-var-strict]: unused variable addr.
-> File "simulator.ml", line 160, characters 10-11:
-> 160 | let step (m:mach) : unit =
+> File "simulator.ml", line 168, characters 10-11:
+> 168 | let step (m:mach) : unit =
 >                 ^
 > Warning 27 [unused-var-strict]: unused variable m.
-> File "simulator.ml", line 200, characters 14-15:
-> 200 | let assemble (p:prog) : exec =
+> File "simulator.ml", line 208, characters 14-15:
+> 208 | let assemble (p:prog) : exec =
 >                     ^
 > Warning 27 [unused-var-strict]: unused variable p.
-> File "simulator.ml", line 216, characters 10-15:
-> 216 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
+> File "simulator.ml", line 224, characters 10-15:
+> 224 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
 >                 ^^^^^
 > Warning 27 [unused-var-strict]: unused variable entry.
-> File "simulator.ml", line 216, characters 17-25:
-> 216 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
+> File "simulator.ml", line 224, characters 17-25:
+> 224 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
 >                        ^^^^^^^^
 > Warning 27 [unused-var-strict]: unused variable text_pos.
-> File "simulator.ml", line 216, characters 27-35:
-> 216 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
+> File "simulator.ml", line 224, characters 27-35:
+> 224 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
 >                                  ^^^^^^^^
 > Warning 27 [unused-var-strict]: unused variable data_pos.
-> File "simulator.ml", line 216, characters 37-45:
-> 216 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
+> File "simulator.ml", line 224, characters 37-45:
+> 224 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
 >                                            ^^^^^^^^
 > Warning 27 [unused-var-strict]: unused variable text_seg.
-> File "simulator.ml", line 216, characters 47-55:
-> 216 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
+> File "simulator.ml", line 224, characters 47-55:
+> 224 | let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
 >                                                      ^^^^^^^^
 > Warning 27 [unused-var-strict]: unused variable data_seg.
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Studenttests.cmx -c -impl studenttests.ml)
-> File "studenttests.ml", line 2, characters 0-8:
-> 2 | open X86
->     ^^^^^^^^
-> Warning 33 [unused-open]: unused open Dune__exe.X86.
-> File "studenttests.ml", line 3, characters 0-14:
-> 3 | open Simulator
->     ^^^^^^^^^^^^^^
-> Warning 33 [unused-open]: unused open Dune__exe.Simulator.
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Gradedtests.cmo -c -impl gradedtests.ml)
 > File "gradedtests.ml", line 137, characters 2-30:
 > 137 |   for i=1 to n do step m' done;
@@ -276,6 +227,15 @@ $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5.
 > 166 |   for i=1 to n do step m done;
 >         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 > Warning 35 [unused-for-index]: unused for-loop index i.
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Studenttests.cmx -c -impl studenttests.ml)
+> File "studenttests.ml", line 2, characters 0-8:
+> 2 | open X86
+>     ^^^^^^^^
+> Warning 33 [unused-open]: unused open Dune__exe.X86.
+> File "studenttests.ml", line 3, characters 0-14:
+> 3 | open Simulator
+>     ^^^^^^^^^^^^^^
+> Warning 33 [unused-open]: unused open Dune__exe.Simulator.
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Main.cmo -c -impl main.ml)
 > File "main.ml", line 3, characters 0-8:
 > 3 | open X86
