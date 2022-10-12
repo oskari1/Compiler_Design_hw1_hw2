@@ -1,0 +1,12 @@
+factorial_handwritten:
+
+make factorial_handwritten
+./factorial_handwritten
+
+
+
+ocaml version (x86/x86.ml and main.ml):
+
+make generated #this will emit generated.s
+./generated
+
