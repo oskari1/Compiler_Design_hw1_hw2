@@ -157,6 +157,37 @@ let interp_cnd {fo; fs; fz} : cnd -> bool = fun c ->
 let map_addr (addr:quad) : int option = 
   if addr > mem_top || addr < mem_bot then None else Some (Int64.to_int (Int64.sub addr 0x400000L)) 
 
+(* Given memory : sbyte array and an address in hex, translate the address into int
+   and use it to access the instruction at the desired address *)
+let fetch (m:mem) (addr:quad) : sbyte = let addr' = map_addr addr in
+  match addr' with 
+  | Some add -> m.(add)
+  | None -> raise X86lite_segfault
+
+let read_reg (m:mach) (reg:reg) : quad = m.regs.(rind reg)
+
+let get_op (ins:sbyte) : opcode =
+    match ins with
+    | InsB0 (op', _) -> op'
+    | _ -> raise X86lite_segfault
+
+let get_operands (ins:sbyte) : (operand list) =
+  match ins with
+  | InsB0 (_, operands) -> operands 
+  | _ -> raise X86lite_segfault
+
+(*
+let interpret_operand (opd:operand) (m:mach) =
+  match opd with 
+  | Imm (Lit lit) -> lit  (* returns the quad literal, note that by assumption, Imm can't be followed by a Label*)
+  | Reg reg -> read_reg m reg  (* returns the value held in reg : quad*) 
+  | Ind1 (Lit lit) -> lit 
+  | Ind2 reg -> read_reg m reg (* returns the address held in reg, addresses are also of type quad *)
+  | Ind3 (Lit lit, reg) -> (read_reg m reg) + lit  (* compute addr in register + lit *)  
+  | _ -> raise X86lite_segfault
+*)
+let update_state (op:opcode) (operands : operand list) (m:mach) = 
+  failwith "unimplemented"
 
 (* Simulates one step of the machine:
     - fetch the instruction at %rip
@@ -166,7 +197,11 @@ let map_addr (addr:quad) : int option =
     - set the condition flags
 *)
 let step (m:mach) : unit =
-failwith "step unimplemented"
+  let ins = fetch (m.mem) (read_reg m Rip) in
+  (* extract the operation and the operands *)
+  let op = get_op ins in
+  let operands = get_operands ins in 
+  update_state op operands m
 
 (* Runs the machine until the rip register reaches a designated
    memory address. Returns the contents of %rax when the 
