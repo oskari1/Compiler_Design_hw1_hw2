@@ -158,13 +158,46 @@ let map_addr (addr:quad) : int option =
   if addr > mem_top || addr < mem_bot then None else Some (Int64.to_int (Int64.sub addr 0x400000L)) 
 
 (* Given memory : sbyte array and an address in hex, translate the address into int
-   and use it to access the instruction at the desired address *)
-let fetch (m:mem) (addr:quad) : sbyte = let addr' = map_addr addr in
+   and use it to access 8 bytes starting at the desired address *)
+let fetch (m:mem) (addr:quad) : (sbyte list) = 
+  let addr' = map_addr addr in
   match addr' with 
-  | Some add -> m.(add)
+  | Some add -> List.map (fun i -> m.(add + i)) [0;1;2;3;4;5;6;7]   (* note that since we have 64-bit machine, we fetch 8 bytes *)
   | None -> raise X86lite_segfault
 
-let read_reg (m:mach) (reg:reg) : quad = m.regs.(rind reg)
+let write_quad_to_mem (m:mem) (addr:quad) (value:quad) : unit =
+  let sbyte_values = sbytes_of_int64 value in
+  let addr' = map_addr addr in 
+  match addr' with
+  | Some add -> begin 
+    for n = 0 to 7 do 
+      m.(add + n) <-  List.nth sbyte_values n
+    done end
+  | None -> raise X86lite_segfault
+
+let rec read (m:mach) (operand:operand) : quad = 
+  match operand with
+  | Imm (Lit lit) -> lit
+  | Reg reg -> m.regs.(rind reg)
+  | Ind1 (Lit lit) -> let fetched_sbytes = fetch (m.mem) lit in int64_of_sbytes fetched_sbytes
+  | Ind2 reg -> let fetched_sbytes = fetch (m.mem) (read m (Reg reg)) in int64_of_sbytes fetched_sbytes
+  | Ind3 (Lit lit, reg) ->  let fetched_sbytes = fetch (m.mem) (Int64.add lit (read m (Reg reg))) in int64_of_sbytes fetched_sbytes
+  | _ -> raise X86lite_segfault
+
+let compute_Ind_addr (operand:operand) (m:mach) : quad =
+  match operand with
+  | Ind1 (Lit lit) -> lit
+  | Ind2 reg -> read m (Reg reg) 
+  | Ind3 (Lit lit, reg) -> Int64.add lit (read m (Reg reg))
+  | _ -> raise X86lite_segfault
+
+let write (m:mach) (operand:operand) (value:quad) :unit =
+  match operand with 
+  | Reg reg -> m.regs.(rind reg) <- value
+  | Ind1 (Lit lit) -> write_quad_to_mem (m.mem) lit value 
+  | Ind2 reg -> write_quad_to_mem (m.mem) (read m (Reg reg)) value 
+  | Ind3 (Lit lit, reg) -> write_quad_to_mem (m.mem) (Int64.add lit (read m (Reg reg))) value 
+  | _ -> raise X86lite_segfault
 
 let get_op (ins:sbyte) : opcode =
     match ins with
@@ -176,18 +209,88 @@ let get_operands (ins:sbyte) : (operand list) =
   | InsB0 (_, operands) -> operands 
   | _ -> raise X86lite_segfault
 
-(*
-let interpret_operand (opd:operand) (m:mach) =
-  match opd with 
-  | Imm (Lit lit) -> lit  (* returns the quad literal, note that by assumption, Imm can't be followed by a Label*)
-  | Reg reg -> read_reg m reg  (* returns the value held in reg : quad*) 
-  | Ind1 (Lit lit) -> lit 
-  | Ind2 reg -> read_reg m reg (* returns the address held in reg, addresses are also of type quad *)
-  | Ind3 (Lit lit, reg) -> (read_reg m reg) + lit  (* compute addr in register + lit *)  
-  | _ -> raise X86lite_segfault
-*)
-let update_state (op:opcode) (operands : operand list) (m:mach) = 
-  failwith "unimplemented"
+let rec update_state (op:opcode) (operands : operand list) (m:mach) :unit = 
+  if List.mem op [Negq; Incq; Decq; Notq] then 
+    begin
+      let dst = List.hd operands in
+      let dst_val = read m dst in 
+      let apply_unary_op (op:quad -> quad) = write m dst (op dst_val) in  
+      match op with
+      | Negq -> apply_unary_op Int64.neg 
+      | Incq -> apply_unary_op Int64.succ
+      | Decq -> apply_unary_op Int64.pred
+      | Notq -> apply_unary_op Int64.lognot
+      | _ -> raise X86lite_segfault
+    end
+  else 
+    if List.mem op [Addq; Subq; Imulq; Andq; Orq; Xorq; Sarq; Shlq; Shrq] then
+      begin
+        let src = read m (List.hd operands) in
+        let dst = List.hd (List.rev operands) in
+        let dst_val = read m dst in
+        let apply_binary_op (op:quad -> quad -> quad) = write m dst (op dst_val src) in 
+        match op with
+        | Addq -> apply_binary_op Int64.add  
+        | Subq -> apply_binary_op Int64.sub
+        | Imulq -> apply_binary_op Int64.mul
+        | Andq -> apply_binary_op Int64.logand
+        | Orq -> apply_binary_op Int64.logor
+        | Xorq -> apply_binary_op Int64.logxor
+        | Sarq -> write m dst (Int64.shift_right dst_val (Int64.to_int src))  
+        | Shlq -> write m dst (Int64.shift_left dst_val (Int64.to_int src))  
+        | Shrq -> write m dst (Int64.shift_right_logical dst_val (Int64.to_int src))  
+        | _ -> raise X86lite_segfault
+      end
+    else
+      match op with
+      | Set cc -> 
+        let dst = List.hd operands in   
+        let value = read m dst in
+        let zeroed_lower_bytes = Int64.logand value 0xffL in
+        begin
+          if interp_cnd (m.flags) cc then write m dst (Int64.add zeroed_lower_bytes 1L) 
+          else write m dst zeroed_lower_bytes 
+        end
+      | Leaq -> 
+        let addr = compute_Ind_addr (List.hd operands) m in
+        let dst = List.hd (List.rev operands) in
+        write m dst addr 
+      | Movq -> 
+        let src = read m (List.hd operands) in
+        let dst = List.hd (List.rev operands) in
+        write m dst src
+      | Pushq -> 
+        let src = read m (List.hd operands) in 
+        let rsp_val = read m (Reg Rsp) in
+        begin
+          write m (Reg Rsp) (Int64.sub rsp_val 8L);
+          write m (Ind2 Rsp) src
+        end
+      | Popq -> 
+        let dst = List.hd operands in 
+        let mem_rsp = read m (Ind2 Rsp) in
+        let rsp_val = read m (Reg Rsp) in 
+        begin
+          write m dst mem_rsp;
+          write m (Reg Rsp) (Int64.add rsp_val 8L)
+        end
+      | Cmpq -> 
+        let src1 = read m (List.hd operands) in
+        let src2 = read m (List.hd (List.rev operands)) in
+        let value = Int64.sub src1 src2 in  
+        failwith "unimplemented"
+      | Jmp -> let src = read m (List.hd operands) in write m (Reg Rip) src
+      | Callq -> let src = List.hd operands in update_state Pushq [Reg Rip] m; update_state Jmp [src] m
+      | Retq -> update_state Popq [Reg Rip] m
+      | J cc -> 
+        let src = List.hd operands in
+        let rip_val = read m (Reg Rip) in
+        begin 
+          if interp_cnd (m.flags) cc 
+          then update_state Jmp [src] m
+          else write m (Reg Rip) (Int64.add rip_val 8L) 
+        end
+      | _ -> raise X86lite_segfault
 
 (* Simulates one step of the machine:
     - fetch the instruction at %rip
@@ -197,11 +300,15 @@ let update_state (op:opcode) (operands : operand list) (m:mach) =
     - set the condition flags
 *)
 let step (m:mach) : unit =
-  let ins = fetch (m.mem) (read_reg m Rip) in
+  let ins = List.hd (fetch (m.mem) (read m (Reg Rip))) in
   (* extract the operation and the operands *)
   let op = get_op ins in
   let operands = get_operands ins in 
-  update_state op operands m
+  begin
+    update_state op operands m;
+    if not (List.mem op [Jmp; Callq; Retq; J Eq; J Neq; J Gt; J Ge; J Lt; J Le])
+    then write m (Reg Rip) (Int64.add 8L (read m (Reg Rip)))
+  end
 
 (* Runs the machine until the rip register reaches a designated
    memory address. Returns the contents of %rax when the 
