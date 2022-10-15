@@ -158,21 +158,27 @@ let map_addr (addr:quad) : int option =
   if addr > mem_top || addr < mem_bot then None else Some (Int64.to_int (Int64.sub addr 0x400000L)) 
 
 (* Given memory : sbyte array and an address in hex, translate the address into int
-   and use it to access 8 bytes starting at the desired address *)
+   and use it to access 8 bytes starting at the desired address. Note comment earlier
+   "Each instruciton takes up exactly 8 bytes but only the first byte contains information about the instruction"
+   That's why we use map to fetch the 8 bytes that follow right after addr. *)
 let fetch (m:mem) (addr:quad) : (sbyte list) = 
   let addr' = map_addr addr in
   match addr' with 
-  | Some add -> List.map (fun i -> m.(add + i)) [0;1;2;3;4;5;6;7]   (* note that since we have 64-bit machine, we fetch 8 bytes *)
+  | Some add -> List.map (fun i -> m.(add + i)) [0;1;2;3;4;5;6;7]   
   | None -> raise X86lite_segfault
 
+(* Given memory : sbyte array and an address in hex, translate the address into int
+   and use it to write to the 8 bytes starting at the desired address the sbyte representation of the input data value *)
 let write_quad_to_mem (m:mem) (addr:quad) (value:quad) : unit =
   let sbyte_values = sbytes_of_int64 value in
   let addr' = map_addr addr in 
   match addr' with
-  | Some add -> begin 
-    for n = 0 to 7 do 
-      m.(add + n) <-  List.nth sbyte_values n
-    done end
+  | Some add -> 
+    begin 
+      for n = 0 to 7 do 
+        m.(add + n) <-  List.nth sbyte_values n
+      done
+    end
   | None -> raise X86lite_segfault
 
 let rec read (m:mach) (operand:operand) : quad = 
