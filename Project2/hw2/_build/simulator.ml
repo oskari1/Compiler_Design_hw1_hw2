@@ -284,7 +284,7 @@ let rec update_state (op:opcode) (operands : operand list) (m:mach) :unit =
         let src1 = read m (List.hd operands) in
         let src2 = read m (List.hd (List.rev operands)) in
         let value = Int64.sub src1 src2 in  
-        failwith "unimplemented"
+        ()
       | Jmp -> let src = read m (List.hd operands) in write m (Reg Rip) src
       | Callq -> let src = List.hd operands in update_state Pushq [Reg Rip] m; update_state Jmp [src] m
       | Retq -> update_state Popq [Reg Rip] m
@@ -298,6 +298,18 @@ let rec update_state (op:opcode) (operands : operand list) (m:mach) :unit =
         end
       | _ -> raise X86lite_segfault
 
+let set_flags (op:opcode) (operands:operand list) (m:mach) : unit = 
+  match op with 
+  | Negq -> 
+    let dst = List.hd operands in
+    let dst_val = read m dst in 
+    let res = Int64.neg dst_val in
+    begin
+      m.flags.fs <- (res < 0L);
+      if dst_val = Int64.min_int then m.flags.fo <- true else ();
+      m.flags.fz <- (res = 0L) 
+    end
+  | _ -> () 
 (* Simulates one step of the machine:
     - fetch the instruction at %rip
     - compute the source and/or destination information from the operands
@@ -306,12 +318,15 @@ let rec update_state (op:opcode) (operands : operand list) (m:mach) :unit =
     - set the condition flags
 *)
 let step (m:mach) : unit =
+  (* fetch the instruction at %rip *)
   let ins = List.hd (fetch (m.mem) (read m (Reg Rip))) in
-  (* extract the operation and the operands *)
+  (* extract the operation and the operands from the sbyte instruction *)
   let op = get_op ins in
   let operands = get_operands ins in 
   begin
+    (* update the state and if the instruction did not modify %rip, increment %rip by 8L *)
     update_state op operands m;
+    set_flags op operands m;
     if not (List.mem op [Jmp; Callq; Retq; J Eq; J Neq; J Gt; J Ge; J Lt; J Le])
     then write m (Reg Rip) (Int64.add 8L (read m (Reg Rip)))
   end
