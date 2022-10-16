@@ -333,21 +333,15 @@ let step (m:mach) : unit =
     Set _ | Leaq | Movq | Pushq | Popq | Jmp | Callq | Retq | J _ -> false
     | _ -> true in
   if is_ALU op then
-    begin
-      if List.length operands = 2 then
-        update_state_binary_ALU op operands m
-      else 
-        update_state_unary_ALU op operands m;
-      if (read m (Reg Rip)) = rip_val then 
-      write m (Reg Rip) (Int64.add 8L rip_val)
-    end
+    if List.length operands = 2 then
+      update_state_binary_ALU op operands m
+    else 
+      update_state_unary_ALU op operands m
   else
-    begin
       update_state_non_ALU op operands m;
-      if (read m (Reg Rip)) = rip_val then 
-      write m (Reg Rip) (Int64.add 8L rip_val)
-    end
-
+  if (read m (Reg Rip)) = rip_val then 
+  write m (Reg Rip) (Int64.add 8L rip_val)
+  
 (* Runs the machine until the rip register reaches a designated
    memory address. Returns the contents of %rax when the 
    machine halts. *)
