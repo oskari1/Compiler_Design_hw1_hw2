@@ -376,10 +376,8 @@ let update_state_unary_ALU (op:opcode) (operands : operand list) (m:mach) :unit 
     - set the condition flags
 *)
 let step (m:mach) : unit =
-  (* fetch the instruction at %rip *)
   let rip_val = read m (Reg Rip) in
   let ins = List.hd (fetch (m.mem) rip_val) in
-  (* extract the operation and the operands from the sbyte instruction *)
   let op = get_op ins in
   let operands = get_operands ins in 
   let is_ALU = function
@@ -391,7 +389,7 @@ let step (m:mach) : unit =
     else 
       update_state_unary_ALU op operands m
   else
-      update_state_non_ALU op operands m;
+    update_state_non_ALU op operands m;
   if (read m (Reg Rip)) = rip_val then 
   write m (Reg Rip) (Int64.add 8L rip_val)
   
