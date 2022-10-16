@@ -261,6 +261,48 @@ let rec update_state_non_ALU (op:opcode) (operands : operand list) (m:mach) :uni
     end
   | _ -> raise X86lite_segfault
 
+let update_state_binary_ALU (op:opcode) (operands : operand list) (m:mach) :unit =
+  let src_val = read m (List.hd operands) in
+  let dst_loc = List.hd (List.rev operands) in
+  let dst_val = read m dst_loc in
+  let apply_binary_op (op:quad -> quad -> quad) : quad = op dst_val src_val in
+  let amt = Int64.to_int src_val in
+  let apply_shift_op (op:quad -> int -> quad) : quad = op dst_val amt in
+  let result = 
+    begin 
+      match op with
+      | Addq -> apply_binary_op Int64.add  
+      | (Subq | Cmpq) -> apply_binary_op Int64.sub
+      | Imulq -> apply_binary_op Int64.mul
+      | Andq -> apply_binary_op Int64.logand
+      | Orq -> apply_binary_op Int64.logor
+      | Xorq -> apply_binary_op Int64.logxor
+      | Sarq -> apply_shift_op Int64.shift_right
+      | Shlq -> apply_shift_op Int64.shift_left
+      | Shrq -> apply_shift_op Int64.shift_right_logical
+      | _ -> raise X86lite_segfault
+    end in
+  begin
+    if not (op = Cmpq) then write m dst_loc result 
+  end   
+
+let update_state_unary_ALU (op:opcode) (operands : operand list) (m:mach) :unit =
+  let dst_loc = List.hd operands in
+  let dst_val = read m dst_loc in 
+  let apply_unary_op (op:quad -> quad) : quad = op dst_val in 
+  let result = 
+    begin
+      match op with
+      | Negq -> apply_unary_op Int64.neg 
+      | Incq -> apply_unary_op Int64.succ
+      | Decq -> apply_unary_op Int64.pred
+      | Notq -> apply_unary_op Int64.lognot
+      | _ -> raise X86lite_segfault
+    end in
+  begin
+    write m dst_loc result
+  end
+
 let set_flags (op:opcode) (operands:operand list) (m:mach) : unit = 
   match op with 
   | Negq -> 
@@ -291,63 +333,17 @@ let step (m:mach) : unit =
     Set _ | Leaq | Movq | Pushq | Popq | Jmp | Callq | Retq | J _ -> false
     | _ -> true in
   if is_ALU op then
-    (* ALU instructions *)
     begin
       if List.length operands = 2 then
-        (* binary operation *)
-        begin
-          let src_val = read m (List.hd operands) in
-          let dst_loc = List.hd (List.rev operands) in
-          let dst_val = read m dst_loc in
-          let apply_binary_op (op:quad -> quad -> quad) : quad = op dst_val src_val in
-          let amt = Int64.to_int src_val in
-          let apply_shift_op (op:quad -> int -> quad) : quad = op dst_val amt in
-          let result = 
-            begin 
-              match op with
-              | Addq -> apply_binary_op Int64.add  
-              | (Subq | Cmpq) -> apply_binary_op Int64.sub
-              | Imulq -> apply_binary_op Int64.mul
-              | Andq -> apply_binary_op Int64.logand
-              | Orq -> apply_binary_op Int64.logor
-              | Xorq -> apply_binary_op Int64.logxor
-              | Sarq -> apply_shift_op Int64.shift_right
-              | Shlq -> apply_shift_op Int64.shift_left
-              | Shrq -> apply_shift_op Int64.shift_right_logical
-              | _ -> raise X86lite_segfault
-            end in
-          begin
-            if not (op = Cmpq) then write m dst_loc result 
-          end
-        end
+        update_state_binary_ALU op operands m
       else 
-        (* unary operation *)
-        begin
-          let dst_loc = List.hd operands in
-          let dst_val = read m dst_loc in 
-          let apply_unary_op (op:quad -> quad) : quad = op dst_val in 
-          let result = 
-            begin
-              match op with
-              | Negq -> apply_unary_op Int64.neg 
-              | Incq -> apply_unary_op Int64.succ
-              | Decq -> apply_unary_op Int64.pred
-              | Notq -> apply_unary_op Int64.lognot
-              | _ -> raise X86lite_segfault
-            end in
-          begin
-            write m dst_loc result
-          end
-        end;
-        (* if %rip has not been modified, increment it by 8L *)
-        if (read m (Reg Rip)) = rip_val then 
-        write m (Reg Rip) (Int64.add 8L rip_val)
+        update_state_unary_ALU op operands m;
+      if (read m (Reg Rip)) = rip_val then 
+      write m (Reg Rip) (Int64.add 8L rip_val)
     end
   else
-    (* non-ALU instructions *)
     begin
       update_state_non_ALU op operands m;
-      (* if %rip has not been modified, increment it by 8L *)
       if (read m (Reg Rip)) = rip_val then 
       write m (Reg Rip) (Int64.add 8L rip_val)
     end
