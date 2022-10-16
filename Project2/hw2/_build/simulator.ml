@@ -261,6 +261,43 @@ let rec update_state_non_ALU (op:opcode) (operands : operand list) (m:mach) :uni
     end
   | _ -> raise X86lite_segfault
 
+let set_cc_unary_ALU (m:mach) (result:quad) (op:opcode) (dst_val:quad) = 
+  let set_flags (overflow_op: quad -> Int64_overflow.t) = 
+    begin
+      let result_t : Int64_overflow.t = overflow_op dst_val in
+      m.flags.fo <- result_t.overflow;
+      m.flags.fs <- result < 0L;
+      m.flags.fz <- result = 0L
+    end in
+  match op with
+  | Negq -> set_flags Int64_overflow.neg 
+  | Decq -> set_flags Int64_overflow.pred
+  | Incq -> set_flags Int64_overflow.succ
+  | _ -> () 
+  
+let rec set_cc_binary_ALU (m:mach) (result:quad) (op:opcode) (src_val:quad) (dst_val:quad) = 
+  let set_flags (overflow_op: quad -> quad -> Int64_overflow.t) = 
+    begin
+      let result_t : Int64_overflow.t = overflow_op dst_val src_val in
+      m.flags.fo <- result_t.overflow;
+      m.flags.fs <- result < 0L;
+      m.flags.fz <- result = 0L
+    end in
+  match op with
+  | Addq -> set_flags Int64_overflow.add  
+  | Subq -> set_flags Int64_overflow.sub
+  | Imulq -> set_flags Int64_overflow.mul
+  | Andq -> 
+    begin
+      m.flags.fo <- false;
+      m.flags.fs <- result < 0L;
+      m.flags.fz <- result = 0L
+    end 
+  | Orq -> set_cc_binary_ALU m result Andq src_val dst_val
+  | Xorq -> set_cc_binary_ALU m result Andq src_val dst_val
+  | Cmpq -> set_cc_binary_ALU m result Subq src_val dst_val
+  | _ -> ()
+
 let update_state_binary_ALU (op:opcode) (operands : operand list) (m:mach) :unit =
   let src_val = read m (List.hd operands) in
   let dst_loc = List.hd (List.rev operands) in
@@ -283,7 +320,8 @@ let update_state_binary_ALU (op:opcode) (operands : operand list) (m:mach) :unit
       | _ -> raise X86lite_segfault
     end in
   begin
-    if not (op = Cmpq) then write m dst_loc result 
+    if not (op = Cmpq) then write m dst_loc result;
+    set_cc_binary_ALU m result op src_val dst_val
   end   
 
 let update_state_unary_ALU (op:opcode) (operands : operand list) (m:mach) :unit =
@@ -300,21 +338,10 @@ let update_state_unary_ALU (op:opcode) (operands : operand list) (m:mach) :unit 
       | _ -> raise X86lite_segfault
     end in
   begin
-    write m dst_loc result
+    write m dst_loc result;
+    set_cc_unary_ALU m result op dst_val
   end
 
-let set_flags (op:opcode) (operands:operand list) (m:mach) : unit = 
-  match op with 
-  | Negq -> 
-    let dst = List.hd operands in
-    let dst_val = read m dst in 
-    let res = Int64.neg dst_val in
-    begin
-      m.flags.fs <- (res < 0L);
-      if dst_val = Int64.min_int then m.flags.fo <- true else ();
-      m.flags.fz <- (res = 0L) 
-    end
-  | _ -> () 
 (* Simulates one step of the machine:
     - fetch the instruction at %rip
     - compute the source and/or destination information from the operands
