@@ -276,6 +276,7 @@ let set_cc_unary_ALU (m:mach) (result:quad) (op:opcode) (dst_val:quad) =
   | _ -> () 
   
 let rec set_cc_binary_ALU (m:mach) (result:quad) (op:opcode) (src_val:quad) (dst_val:quad) = 
+  let amt = Int64.to_int src_val in
   let set_flags (overflow_op: quad -> quad -> Int64_overflow.t) = 
     begin
       let result_t : Int64_overflow.t = overflow_op dst_val src_val in
@@ -296,6 +297,31 @@ let rec set_cc_binary_ALU (m:mach) (result:quad) (op:opcode) (src_val:quad) (dst
   | Orq -> set_cc_binary_ALU m result Andq src_val dst_val
   | Xorq -> set_cc_binary_ALU m result Andq src_val dst_val
   | Cmpq -> set_cc_binary_ALU m result Subq src_val dst_val
+  | Sarq -> if amt <> 0 then 
+    begin
+      m.flags.fs <- result < 0L;
+      m.flags.fz <- result = 0L;
+      m.flags.fo <- amt = 1
+    end
+  | Shlq -> if amt <> 0 then 
+    begin
+      m.flags.fs <- result < 0L;
+      m.flags.fz <- result = 0L;
+      if amt = 1 then
+        begin 
+          let mask = Int64.shift_left 0xcL 60 in
+          let msb_bit_pair = Int64.shift_right_logical (Int64.logand dst_val mask) 60 in 
+          m.flags.fo <- msb_bit_pair = 2L || msb_bit_pair = 1L 
+        end
+    end
+  | Shrq -> if amt <> 0 then
+    let get_MSB (num:quad) = num < 0L in
+    begin
+      m.flags.fs <- get_MSB result;
+      m.flags.fz <- result = 0L;
+      if amt = 1 then
+        m.flags.fo <- get_MSB dst_val
+    end
   | _ -> ()
 
 let update_state_binary_ALU (op:opcode) (operands : operand list) (m:mach) :unit =
