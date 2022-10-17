@@ -430,6 +430,22 @@ exception Redefined_sym of lbl
 
   HINT: List.fold_left and List.fold_right are your friends.
  *)
+
+let get_total_no_instr (p:prog) : int =
+  let is_text (elem:X86.elem) : bool = 
+    match elem with
+    | {lbl = _ ; global = _ ; asm = Text _} -> true
+    | _ -> false
+  in 
+  let text_elems = List.filter is_text p in 
+  let get_no_instr (elem:X86.elem) : int =
+    match elem with
+    | {lbl = _ ; global = _ ; asm = Text ins_list} -> List.length ins_list 
+    | _ -> 0 
+  in
+  let instr_per_elem = List.map get_no_instr text_elems in
+  List.fold_right (fun x y -> x + y) instr_per_elem 0
+
 let assemble (p:prog) : exec =
 failwith "assemble unimplemented"
 
