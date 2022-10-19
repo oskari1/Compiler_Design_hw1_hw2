@@ -457,12 +457,12 @@ let construct_sym_tab (segment:prog) (bottom:quad) : (lbl * quad) list =
     | Asciz str -> String.length str + 1
     | Quad _ -> 8
   in
-  let len_list (elem:elem) : (lbl * int) =
+  let get_label_length_pairs (elem:elem) : (lbl * int) =
     match elem with 
     | {lbl = label ; global = _ ; asm = Data data_list} -> (label, List.fold_left (fun acc data -> acc + data_size data) 0 data_list) 
     | {lbl = label ; global = _ ; asm = Text ins_list} -> (label, List.length ins_list * 8) 
   in
-  let lbl_length_pairs = List.map len_list segment in 
+  let lbl_length_pairs = List.map get_label_length_pairs segment in 
   let labels_list = fst (List.split lbl_length_pairs) in
   let lengths_list = snd (List.split lbl_length_pairs) in
   let prefix_sums = snd (List.fold_left_map (fun acc x -> (acc + x, acc + x)) 0 lengths_list) in
@@ -476,7 +476,14 @@ let construct_sym_tab (segment:prog) (bottom:quad) : (lbl * quad) list =
   let offsets_from_bottom = List.map (fun x -> Int64.add (Int64.of_int x) bottom) shifted_prefix_sums in
   List.combine labels_list offsets_from_bottom 
 
+
 let make_sym_tab_func sym_tab =
+  let rec unique_labels (labels : lbl list) : bool =
+      match labels with 
+      | [] -> true
+      | l::ls -> if List.mem l ls then raise (Redefined_sym l) else unique_labels ls
+  in
+  let _ = unique_labels (fst (List.split sym_tab)) in 
   function (key:lbl) ->
     let filtered_keys = List.filter (fun (k,_) -> key = k) sym_tab in
     match filtered_keys with
@@ -490,7 +497,7 @@ let replace_labels (ins_list:ins list) (symbol_table : (lbl -> quad)) : ins list
       | Imm (Lbl lbl) -> Imm (Lit (symbol_table lbl))
       | Ind1 (Lbl lbl) -> Ind1 (Lit (symbol_table lbl))
       | Ind3 (Lbl lbl, reg) -> Ind3 (Lit (symbol_table lbl), reg)
-      | x -> x
+      | _ -> operand 
     in
     match ins with
     | op, oper_list -> op, List.map replace_operands oper_list
