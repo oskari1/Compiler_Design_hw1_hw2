@@ -1,1 +1,1 @@
-studenttests.ml: Assert Simulator X86
+studenttests.ml: Array Asm Assert Int64 List Printf Simulator X86

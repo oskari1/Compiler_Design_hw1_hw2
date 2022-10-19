@@ -2,10 +2,8 @@ open Assert
 open X86
 open Simulator
 open Asm
-
 (* You can use this file for additional test cases to help your *)
 (* implementation.                                              *)
-
 let cc_test (s:string) (n: int) (m: mach) (fo', fs', fz') (f: mach -> bool) () =
   let m' = {m with flags = {fo=fo';fs=fs';fz=fz'}} in
   for i=1 to n do step m' done;
@@ -15,7 +13,6 @@ let cs_test (n:int) (m:mach) (fo',fs',fz') =
   cc_test (Printf.sprintf "expected OF:%b SF:%b ZF:%b but got 0F:%b SF:%b ZF:%b" fo' fs' fz' m.flags.fo m.flags.fs m.flags.fz)
     n m (not fo',not fs',not fz')
     (fun m -> m.flags.fo = fo' && m.flags.fs = fs' && m.flags.fz = fz')
-
 
 let test_machine (bs: sbyte list): mach =
   let mem = (Array.make mem_size (Byte '\x00')) in
@@ -39,5 +36,5 @@ let condition_flag_set_tests =
   ]
 
 let provided_tests : suite = [
-(*Test("XXXXXXXXXX", condition_flag_set_tests);*)
+  Test("XXXXXXXXXX", condition_flag_set_tests);
 ]

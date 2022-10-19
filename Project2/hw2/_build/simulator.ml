@@ -161,7 +161,7 @@ let map_addr (addr:quad) : int option =
    and use it to access 8 bytes starting at the desired address. Note comment earlier
    "Each instruciton takes up exactly 8 bytes but only the first byte contains information about the instruction"
    That's why we use map to fetch the 8 bytes that follow right after addr. *)
-let fetch (m:mem) (addr:quad) : (sbyte list) = 
+let read_quad_from_mem (m:mem) (addr:quad) : (sbyte list) = 
   let addr' = map_addr addr in
   match addr' with 
   | Some add -> List.map (fun i -> m.(add + i)) [0;1;2;3;4;5;6;7]   
@@ -185,9 +185,9 @@ let rec read (m:mach) (operand:operand) : quad =
   match operand with
   | Imm (Lit lit) -> lit
   | Reg reg -> m.regs.(rind reg)
-  | Ind1 (Lit lit) -> let fetched_sbytes = fetch (m.mem) lit in int64_of_sbytes fetched_sbytes
-  | Ind2 reg -> let fetched_sbytes = fetch (m.mem) (read m (Reg reg)) in int64_of_sbytes fetched_sbytes
-  | Ind3 (Lit lit, reg) ->  let fetched_sbytes = fetch (m.mem) (Int64.add lit (read m (Reg reg))) in int64_of_sbytes fetched_sbytes
+  | Ind1 (Lit lit) -> let fetched_sbytes = read_quad_from_mem (m.mem) lit in int64_of_sbytes fetched_sbytes
+  | Ind2 reg -> let fetched_sbytes = read_quad_from_mem (m.mem) (read m (Reg reg)) in int64_of_sbytes fetched_sbytes
+  | Ind3 (Lit lit, reg) ->  let fetched_sbytes = read_quad_from_mem (m.mem) (Int64.add lit (read m (Reg reg))) in int64_of_sbytes fetched_sbytes
   | _ -> raise X86lite_segfault
 
 let compute_Ind_addr (operand:operand) (m:mach) : quad =
@@ -377,7 +377,7 @@ let update_state_unary_ALU (op:opcode) (operands : operand list) (m:mach) :unit 
 *)
 let step (m:mach) : unit =
   let rip_val = read m (Reg Rip) in
-  let ins = List.hd (fetch (m.mem) rip_val) in
+  let ins = List.hd (read_quad_from_mem (m.mem) rip_val) in
   let op = get_op ins in
   let operands = get_operands ins in 
   let is_ALU = function
@@ -430,8 +430,98 @@ exception Redefined_sym of lbl
 
   HINT: List.fold_left and List.fold_right are your friends.
  *)
+
+let separate (p:prog) : (prog * prog) =
+  let ( ** ) g f : ('a -> 'b) = fun x -> g (f x) in
+  let is_text (elem:X86.elem) : bool = 
+      match elem with
+      | {lbl = _ ; global = _ ; asm = Text _} -> true
+      | _ -> false
+  in
+  (List.filter is_text p, List.filter (not ** is_text) p)
+
+(* given a text_segment, computes how many bytes all the instructions will eventually take up.
+   Recall that each instruction takes up exactly 8 bytes, so we just count how many instructions there are times 8. *)
+let get_text_size (text:prog) : quad =
+  let get_no_instr (elem:X86.elem) : int =
+    match elem with
+    | {lbl = _ ; global = _ ; asm = Text ins_list} -> List.length ins_list 
+    | _ -> 0 
+  in
+  let instr_per_elem = List.map get_no_instr text in
+  Int64.mul 8L (Int64.of_int (List.fold_right (fun x y -> x + y) instr_per_elem 0))
+
+let construct_sym_tab (segment:prog) (bottom:quad) : (lbl * quad) list =
+  let data_size (data:data) : int =
+    match data with
+    | Asciz str -> String.length str + 1
+    | Quad _ -> 8
+  in
+  let len_list (elem:elem) : (lbl * int) =
+    match elem with 
+    | {lbl = label ; global = _ ; asm = Data data_list} -> (label, List.fold_left (fun acc data -> acc + data_size data) 0 data_list) 
+    | {lbl = label ; global = _ ; asm = Text ins_list} -> (label, List.length ins_list * 8) 
+  in
+  let lbl_length_pairs = List.map len_list segment in 
+  let labels_list = fst (List.split lbl_length_pairs) in
+  let lengths_list = snd (List.split lbl_length_pairs) in
+  let prefix_sums = snd (List.fold_left_map (fun acc x -> (acc + x, acc + x)) 0 lengths_list) in
+  let shifted_prefix_sums = 0::(List.rev (List.tl (List.rev prefix_sums))) in
+  let offsets_from_bottom = List.map (fun x -> Int64.add (Int64.of_int x) bottom) shifted_prefix_sums in
+  List.combine labels_list offsets_from_bottom 
+
+let make_sym_tab_func sym_tab =
+  function (key:lbl) ->
+    let filtered_keys = List.filter (fun (k,_) -> key = k) sym_tab in
+    match filtered_keys with
+    | [] -> raise (Undefined_sym key)
+    | (_,v)::_ -> v
+
+let replace_labels (ins_list:ins list) (symbol_table : (lbl -> quad)) : ins list =
+  let replace_label (ins:ins) : ins =
+    let replace_operands (operand:operand) :operand =
+      match operand with 
+      | Imm (Lbl lbl) -> Imm (Lit (symbol_table lbl))
+      | Ind1 (Lbl lbl) -> Ind1 (Lit (symbol_table lbl))
+      | Ind3 (Lbl lbl, reg) -> Ind3 (Lit (symbol_table lbl), reg)
+      | x -> x
+    in
+    match ins with
+    | op, oper_list -> op, List.map replace_operands oper_list
+  in
+  List.map replace_label ins_list 
+
 let assemble (p:prog) : exec =
-failwith "assemble unimplemented"
+  let text_data_pair = separate p in 
+  let text_segment = fst text_data_pair in 
+  let data_segment = snd text_data_pair in
+  let text_size = get_text_size text_segment in
+  let data_pos = Int64.add mem_bot text_size in
+  let text_pos = mem_bot in
+  let data_symbols = construct_sym_tab data_segment data_pos in
+  let text_symbols = construct_sym_tab text_segment text_pos in
+  let sym_tab = data_symbols @ text_symbols in 
+  let symbol_table = make_sym_tab_func sym_tab in
+  let get_data_list (elem:elem) =
+    match elem with
+    | {lbl = _ ; global = _ ; asm = Data data_list} -> data_list
+    | _ -> raise X86lite_segfault
+  in
+  let get_ins_list (elem:elem) =
+    match elem with
+    | {lbl = _ ; global = _ ; asm = Text ins_list} -> ins_list
+    | _ -> raise X86lite_segfault
+  in
+  let concat_ins_list = List.concat_map get_ins_list text_segment in
+  let concat_data_list = List.concat_map get_data_list data_segment in
+  let replaced_labels_ins_list = replace_labels concat_ins_list symbol_table in
+  let text_seg = List.concat_map sbytes_of_ins replaced_labels_ins_list in
+  let data_seg = List.concat_map sbytes_of_data concat_data_list in
+  { entry = symbol_table "main"; 
+    text_pos = text_pos;
+    data_pos = data_pos;
+    text_seg = text_seg;
+    data_seg = data_seg}
 
 (* Convert an object file into an executable machine state. 
     - allocate the mem array
