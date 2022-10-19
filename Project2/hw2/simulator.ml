@@ -346,7 +346,7 @@ let update_state_binary_ALU (op:opcode) (operands : operand list) (m:mach) :unit
       | _ -> raise X86lite_segfault
     end in
   begin
-    if not (op = Cmpq) then write m dst_loc result;
+    if not (op = Cmpq) then write m dst_loc result; 
     set_cc_binary_ALU m result op src_val dst_val
   end   
 
@@ -466,7 +466,13 @@ let construct_sym_tab (segment:prog) (bottom:quad) : (lbl * quad) list =
   let labels_list = fst (List.split lbl_length_pairs) in
   let lengths_list = snd (List.split lbl_length_pairs) in
   let prefix_sums = snd (List.fold_left_map (fun acc x -> (acc + x, acc + x)) 0 lengths_list) in
-  let shifted_prefix_sums = 0::(List.rev (List.tl (List.rev prefix_sums))) in
+  let shifted_prefix_sums = 
+    begin
+      if List.length prefix_sums > 1 
+    then  0::(List.rev (List.tl (List.rev prefix_sums))) 
+    else if List.length prefix_sums = 1 then [0] else []
+    end
+  in
   let offsets_from_bottom = List.map (fun x -> Int64.add (Int64.of_int x) bottom) shifted_prefix_sums in
   List.combine labels_list offsets_from_bottom 
 
