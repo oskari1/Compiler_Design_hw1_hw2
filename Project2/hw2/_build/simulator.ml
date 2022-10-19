@@ -542,5 +542,37 @@ let assemble (p:prog) : exec =
   Hint: The Array.make, Array.blit, and Array.of_list library functions 
   may be of use.
 *)
+
+
 let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
-failwith "load unimplemented"
+  let extract_addr (addr:quad) : int =
+    let addr' = map_addr addr in
+    match addr' with 
+    | Some add -> add
+    | None -> raise Not_found 
+  in 
+  let init_regs = 
+    begin
+      let regs = Array.make nregs 0L in
+      let () = regs.(rind(Rip)) <- entry in 
+      let () = regs.(rind(Rsp)) <- Int64.sub mem_top 8L in
+      regs
+    end
+  in
+  let init_mem =  
+    begin 
+      let mem = Array.make mem_size InsFrag in
+      let text_pos' = extract_addr text_pos in
+      let data_pos' = extract_addr data_pos in
+      let exit_pos' = extract_addr (Int64.sub mem_top 8L) in
+      let () = Array.blit (Array.of_list (sbytes_of_int64 exit_addr)) 0 mem exit_pos' 8 in 
+      let () = Array.blit (Array.of_list text_seg) 0 mem text_pos' (List.length text_seg) in
+      let () = Array.blit (Array.of_list data_seg) 0 mem data_pos' (List.length data_seg) in
+      mem   
+    end
+  in
+  let init_flags = {fo = false; fs = false; fz = false} in
+  { flags = init_flags 
+  ; regs = init_regs  
+  ; mem = init_mem 
+  }
