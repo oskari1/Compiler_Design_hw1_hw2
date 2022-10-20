@@ -185,7 +185,8 @@ let rec read (m:mach) (operand:operand) : quad =
   match operand with
   | Imm (Lit lit) -> lit
   | Reg reg -> m.regs.(rind reg)
-  | Ind1 (Lit lit) -> let fetched_sbytes = read_quad_from_mem (m.mem) lit in int64_of_sbytes fetched_sbytes
+(*  | Ind1 (Lit lit) -> let fetched_sbytes = read_quad_from_mem (m.mem) lit in int64_of_sbytes fetched_sbytes*) 
+  | Ind1 (Lit lit) -> lit 
   | Ind2 reg -> let fetched_sbytes = read_quad_from_mem (m.mem) (read m (Reg reg)) in int64_of_sbytes fetched_sbytes
   | Ind3 (Lit lit, reg) ->  let fetched_sbytes = read_quad_from_mem (m.mem) (Int64.add lit (read m (Reg reg))) in int64_of_sbytes fetched_sbytes
   | _ -> raise X86lite_segfault
@@ -220,10 +221,10 @@ let rec update_state_non_ALU (op:opcode) (operands : operand list) (m:mach) :uni
   | Set cc -> 
     let dst = List.hd operands in   
     let value = read m dst in
-    let zeroed_lower_bytes = Int64.logand value 0xffL in
+    let zeroed_lower_byte = Int64.shift_left (Int64.shift_right_logical value 8) 8 in
     begin
-      if interp_cnd (m.flags) cc then write m dst (Int64.add zeroed_lower_bytes 1L) 
-      else write m dst zeroed_lower_bytes 
+      if interp_cnd (m.flags) cc then write m dst (Int64.add zeroed_lower_byte 1L) 
+      else write m dst zeroed_lower_byte 
     end
   | Leaq -> 
     let addr = compute_Ind_addr (List.hd operands) m in
@@ -249,7 +250,15 @@ let rec update_state_non_ALU (op:opcode) (operands : operand list) (m:mach) :uni
       write m (Reg Rsp) (Int64.add rsp_val 8L)
     end
   | Jmp -> let src = read m (List.hd operands) in write m (Reg Rip) src
-  | Callq -> let src = List.hd operands in update_state_non_ALU Pushq [Reg Rip] m; update_state_non_ALU Jmp [src] m
+  | Callq ->  
+    begin 
+      let src_val = read m (List.hd operands) in
+      let rsp_val = read m (Reg Rsp) in
+      let rip_val = read m (Reg Rip) in
+      write m (Reg Rsp) (Int64.sub rsp_val 8L);
+      write m (Ind2 Rsp) (Int64.add rip_val 8L);  
+      write m (Reg Rip) src_val
+    end
   | Retq -> update_state_non_ALU Popq [Reg Rip] m
   | J cc -> 
     let src = List.hd operands in
@@ -301,7 +310,7 @@ let rec set_cc_binary_ALU (m:mach) (result:quad) (op:opcode) (src_val:quad) (dst
     begin
       m.flags.fs <- result < 0L;
       m.flags.fz <- result = 0L;
-      m.flags.fo <- amt = 1
+      if amt = 1 then m.flags.fo <- false
     end
   | Shlq -> if amt <> 0 then 
     begin
@@ -309,8 +318,7 @@ let rec set_cc_binary_ALU (m:mach) (result:quad) (op:opcode) (src_val:quad) (dst
       m.flags.fz <- result = 0L;
       if amt = 1 then
         begin 
-          let mask = Int64.shift_left 0xcL 60 in
-          let msb_bit_pair = Int64.shift_right_logical (Int64.logand dst_val mask) 60 in 
+          let msb_bit_pair = Int64.shift_right_logical dst_val 62 in 
           m.flags.fo <- msb_bit_pair = 2L || msb_bit_pair = 1L 
         end
     end
@@ -346,7 +354,7 @@ let update_state_binary_ALU (op:opcode) (operands : operand list) (m:mach) :unit
       | _ -> raise X86lite_segfault
     end in
   begin
-    if not (op = Cmpq) then write m dst_loc result;
+    if not (op = Cmpq) then write m dst_loc result; 
     set_cc_binary_ALU m result op src_val dst_val
   end   
 
@@ -390,8 +398,13 @@ let step (m:mach) : unit =
       update_state_unary_ALU op operands m
   else
     update_state_non_ALU op operands m;
-  if (read m (Reg Rip)) = rip_val then 
-  write m (Reg Rip) (Int64.add 8L rip_val)
+  let is_control_flow (op:opcode) : bool =
+    match op with 
+    | Jmp | Callq | Retq -> true
+    | J _ -> true 
+    | _ -> false
+  in
+  if not (is_control_flow op) then write m (Reg Rip) (Int64.add 8L rip_val) 
   
 (* Runs the machine until the rip register reaches a designated
    memory address. Returns the contents of %rax when the 
@@ -457,21 +470,33 @@ let construct_sym_tab (segment:prog) (bottom:quad) : (lbl * quad) list =
     | Asciz str -> String.length str + 1
     | Quad _ -> 8
   in
-  let len_list (elem:elem) : (lbl * int) =
+  let get_label_length_pairs (elem:elem) : (lbl * int) =
     match elem with 
     | {lbl = label ; global = _ ; asm = Data data_list} -> (label, List.fold_left (fun acc data -> acc + data_size data) 0 data_list) 
     | {lbl = label ; global = _ ; asm = Text ins_list} -> (label, List.length ins_list * 8) 
-    | _ -> raise X86lite_segfault
   in
-  let lbl_length_pairs = List.map len_list segment in 
+  let lbl_length_pairs = List.map get_label_length_pairs segment in 
   let labels_list = fst (List.split lbl_length_pairs) in
   let lengths_list = snd (List.split lbl_length_pairs) in
   let prefix_sums = snd (List.fold_left_map (fun acc x -> (acc + x, acc + x)) 0 lengths_list) in
-  let shifted_prefix_sums = 0::(List.rev (List.tl (List.rev prefix_sums))) in
+  let shifted_prefix_sums = 
+    begin
+      if List.length prefix_sums > 1 
+    then  0::(List.rev (List.tl (List.rev prefix_sums))) 
+    else if List.length prefix_sums = 1 then [0] else []
+    end
+  in
   let offsets_from_bottom = List.map (fun x -> Int64.add (Int64.of_int x) bottom) shifted_prefix_sums in
   List.combine labels_list offsets_from_bottom 
 
+
 let make_sym_tab_func sym_tab =
+  let rec unique_labels (labels : lbl list) : bool =
+      match labels with 
+      | [] -> true
+      | l::ls -> if List.mem l ls then raise (Redefined_sym l) else unique_labels ls
+  in
+  let _ = unique_labels (fst (List.split sym_tab)) in 
   function (key:lbl) ->
     let filtered_keys = List.filter (fun (k,_) -> key = k) sym_tab in
     match filtered_keys with
@@ -485,7 +510,7 @@ let replace_labels (ins_list:ins list) (symbol_table : (lbl -> quad)) : ins list
       | Imm (Lbl lbl) -> Imm (Lit (symbol_table lbl))
       | Ind1 (Lbl lbl) -> Ind1 (Lit (symbol_table lbl))
       | Ind3 (Lbl lbl, reg) -> Ind3 (Lit (symbol_table lbl), reg)
-      | x -> x
+      | _ -> operand 
     in
     match ins with
     | op, oper_list -> op, List.map replace_operands oper_list
@@ -538,4 +563,34 @@ let assemble (p:prog) : exec =
   may be of use.
 *)
 let load {entry; text_pos; data_pos; text_seg; data_seg} : mach = 
-failwith "load unimplemented"
+  let extract_addr (addr:quad) : int =
+    let addr' = map_addr addr in
+    match addr' with 
+    | Some add -> add
+    | None -> raise Not_found 
+  in 
+  let init_regs = 
+    begin
+      let regs = Array.make nregs 0L in
+      let () = regs.(rind(Rip)) <- entry in 
+      let () = regs.(rind(Rsp)) <- Int64.sub mem_top 8L in
+      regs
+    end
+  in
+  let init_mem =  
+    begin 
+      let mem = Array.make mem_size InsFrag in
+      let text_pos' = extract_addr text_pos in
+      let data_pos' = extract_addr data_pos in
+      let exit_pos' = extract_addr (Int64.sub mem_top 8L) in
+      let () = Array.blit (Array.of_list (sbytes_of_int64 exit_addr)) 0 mem exit_pos' 8 in 
+      let () = Array.blit (Array.of_list text_seg) 0 mem text_pos' (List.length text_seg) in
+      let () = Array.blit (Array.of_list data_seg) 0 mem data_pos' (List.length data_seg) in
+      mem   
+    end
+  in
+  let init_flags = {fo = false; fs = false; fz = false} in
+  { flags = init_flags 
+  ; regs = init_regs  
+  ; mem = init_mem 
+  }

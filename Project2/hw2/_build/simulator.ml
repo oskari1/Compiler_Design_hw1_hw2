@@ -185,7 +185,7 @@ let rec read (m:mach) (operand:operand) : quad =
   match operand with
   | Imm (Lit lit) -> lit
   | Reg reg -> m.regs.(rind reg)
-  (*| Ind1 (Lit lit) -> let fetched_sbytes = read_quad_from_mem (m.mem) lit in int64_of_sbytes fetched_sbytes *)
+(*  | Ind1 (Lit lit) -> let fetched_sbytes = read_quad_from_mem (m.mem) lit in int64_of_sbytes fetched_sbytes*) 
   | Ind1 (Lit lit) -> lit 
   | Ind2 reg -> let fetched_sbytes = read_quad_from_mem (m.mem) (read m (Reg reg)) in int64_of_sbytes fetched_sbytes
   | Ind3 (Lit lit, reg) ->  let fetched_sbytes = read_quad_from_mem (m.mem) (Int64.add lit (read m (Reg reg))) in int64_of_sbytes fetched_sbytes

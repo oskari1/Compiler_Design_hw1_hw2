@@ -2,11 +2,16 @@ open Assert
 open Arg
 open X86
 open Simulator
+open Sp15_tests
+open Sp17_tests
+open Sp18_tests
+open Sp20_tests
 
 exception Ran_tests
 let worklist = ref []
 
-let suite = ref (timeout_suite 10 (Studenttests.provided_tests @ Gradedtests.graded_tests))
+let suite = ref (timeout_suite 10 (Studenttests.provided_tests @ Gradedtests.graded_tests @ Sp15_tests.provided_tests
+ @ Sp17_tests.provided_tests @ Sp18_tests.provided_tests @ Sp20_tests.provided_tests))
 
 let exec_tests () =
   let o = run_suite !suite in

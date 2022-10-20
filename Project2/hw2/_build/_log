@@ -1,50 +1,92 @@
 ### Starting build.
 # Target: main.ml.depends, tags: { package(num), extension:ml, file:main.ml, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package num -modules main.ml > main.ml.depends # cached
+ocamlfind ocamldep -package num -modules main.ml > main.ml.depends
 # Target: util/assert.mli.depends, tags: { extension:mli, file:util/assert.mli, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -modules util/assert.mli > util/assert.mli.depends # cached
-# Target: util/assert.cmi, tags: { byte, compile, extension:mli, file:util/assert.mli, interf, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -I util -I x86 -o util/assert.cmi util/assert.mli # cached
+ocamlfind ocamldep -modules util/assert.mli > util/assert.mli.depends
 # Target: gradedtests.ml.depends, tags: { package(num), extension:ml, file:gradedtests.ml, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package num -modules gradedtests.ml > gradedtests.ml.depends # cached
+ocamlfind ocamldep -package num -modules gradedtests.ml > gradedtests.ml.depends
+# Target: util/assert.cmi, tags: { byte, compile, extension:mli, file:util/assert.mli, interf, ocaml, quiet, traverse }
+ocamlfind ocamlc -c -I util -I x86 -o util/assert.cmi util/assert.mli
 # Target: simulator.ml.depends, tags: { package(num), extension:ml, file:simulator.ml, ocaml, ocamldep, quiet, traverse }
 ocamlfind ocamldep -package num -modules simulator.ml > simulator.ml.depends
 # Target: int64_overflow.mli.depends, tags: { extension:mli, file:int64_overflow.mli, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -modules int64_overflow.mli > int64_overflow.mli.depends # cached
-# Target: int64_overflow.cmi, tags: { byte, compile, extension:mli, file:int64_overflow.mli, interf, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -I x86 -I util -o int64_overflow.cmi int64_overflow.mli # cached
+ocamlfind ocamldep -modules int64_overflow.mli > int64_overflow.mli.depends
 # Target: x86/x86.ml.depends, tags: { extension:ml, file:x86/x86.ml, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -modules x86/x86.ml > x86/x86.ml.depends # cached
+ocamlfind ocamldep -modules x86/x86.ml > x86/x86.ml.depends
+# Target: int64_overflow.cmi, tags: { byte, compile, extension:mli, file:int64_overflow.mli, interf, ocaml, quiet, traverse }
+ocamlfind ocamlc -c -I x86 -I util -o int64_overflow.cmi int64_overflow.mli
 # Target: x86/x86.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:x86/x86.cmo, file:x86/x86.ml, implem, ocaml, quiet, traverse }
-ocamlfind ocamlc -c -I x86 -I util -o x86/x86.cmo x86/x86.ml # cached
+ocamlfind ocamlc -c -I x86 -I util -o x86/x86.cmo x86/x86.ml
 # Target: simulator.cmo, tags: { package(num), byte, compile, extension:cmo, extension:ml, file:simulator.cmo, file:simulator.ml, implem, ocaml, quiet, traverse }
 ocamlfind ocamlc -c -package num -I x86 -I util -o simulator.cmo simulator.ml
+# Target: sp15_tests.ml.depends, tags: { package(num), extension:ml, file:sp15_tests.ml, ocaml, ocamldep, quiet, traverse }
+ocamlfind ocamldep -package num -modules sp15_tests.ml > sp15_tests.ml.depends
+# Target: sp17_tests.ml.depends, tags: { package(num), extension:ml, file:sp17_tests.ml, ocaml, ocamldep, quiet, traverse }
+ocamlfind ocamldep -package num -modules sp17_tests.ml > sp17_tests.ml.depends
+# Target: sp18_tests.ml.depends, tags: { package(num), extension:ml, file:sp18_tests.ml, ocaml, ocamldep, quiet, traverse }
+ocamlfind ocamldep -package num -modules sp18_tests.ml > sp18_tests.ml.depends
+# Target: sp20_tests.ml.depends, tags: { package(num), extension:ml, file:sp20_tests.ml, ocaml, ocamldep, quiet, traverse }
+ocamlfind ocamldep -package num -modules sp20_tests.ml > sp20_tests.ml.depends
 # Target: studenttests.ml.depends, tags: { package(num), extension:ml, file:studenttests.ml, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package num -modules studenttests.ml > studenttests.ml.depends # cached
+ocamlfind ocamldep -package num -modules studenttests.ml > studenttests.ml.depends
 # Target: gradedtests.cmo, tags: { package(num), byte, compile, extension:cmo, extension:ml, file:gradedtests.cmo, file:gradedtests.ml, implem, ocaml, quiet, traverse }
 ocamlfind ocamlc -c -package num -I x86 -I util -o gradedtests.cmo gradedtests.ml
+# Target: sp15_tests.cmo, tags: { package(num), byte, compile, extension:cmo, extension:ml, file:sp15_tests.cmo, file:sp15_tests.ml, implem, ocaml, quiet, traverse }
+ocamlfind ocamlc -c -package num -I x86 -I util -o sp15_tests.cmo sp15_tests.ml
+# Target: sp17_tests.cmo, tags: { package(num), byte, compile, extension:cmo, extension:ml, file:sp17_tests.cmo, file:sp17_tests.ml, implem, ocaml, quiet, traverse }
+ocamlfind ocamlc -c -package num -I x86 -I util -o sp17_tests.cmo sp17_tests.ml
+# Target: sp18_tests.cmo, tags: { package(num), byte, compile, extension:cmo, extension:ml, file:sp18_tests.cmo, file:sp18_tests.ml, implem, ocaml, quiet, traverse }
+ocamlfind ocamlc -c -package num -I x86 -I util -o sp18_tests.cmo sp18_tests.ml
+# Target: sp20_tests.cmo, tags: { package(num), byte, compile, extension:cmo, extension:ml, file:sp20_tests.cmo, file:sp20_tests.ml, implem, ocaml, quiet, traverse }
+ocamlfind ocamlc -c -package num -I x86 -I util -o sp20_tests.cmo sp20_tests.ml
++ ocamlfind ocamlc -c -package num -I x86 -I util -o sp20_tests.cmo sp20_tests.ml
+File "sp20_tests.ml", line 1149, characters 6-16:
+1149 |   let helloworld = [ text "foo"
+             ^^^^^^^^^^
+Warning 26 [unused-var]: unused variable helloworld.
+File "sp20_tests.ml", line 1166, characters 6-15:
+1166 |   let leaq_prog: prog = [
+             ^^^^^^^^^
+Warning 26 [unused-var]: unused variable leaq_prog.
 # Target: studenttests.cmo, tags: { package(num), byte, compile, extension:cmo, extension:ml, file:studenttests.cmo, file:studenttests.ml, implem, ocaml, quiet, traverse }
 ocamlfind ocamlc -c -package num -I x86 -I util -o studenttests.cmo studenttests.ml
 # Target: main.cmo, tags: { package(num), byte, compile, extension:cmo, extension:ml, file:main.cmo, file:main.ml, implem, ocaml, quiet, traverse }
 ocamlfind ocamlc -c -package num -I x86 -I util -o main.cmo main.ml
 # Target: util/assert.ml.depends, tags: { extension:ml, file:util/assert.ml, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -modules util/assert.ml > util/assert.ml.depends # cached
+ocamlfind ocamldep -modules util/assert.ml > util/assert.ml.depends
 # Target: util/assert.cmx, tags: { compile, extension:cmx, extension:ml, file:util/assert.cmx, file:util/assert.ml, implem, native, ocaml, quiet, traverse }
-ocamlfind ocamlopt -c -I util -I x86 -o util/assert.cmx util/assert.ml # cached
+ocamlfind ocamlopt -c -I util -I x86 -o util/assert.cmx util/assert.ml
 # Target: int64_overflow.ml.depends, tags: { package(num), extension:ml, file:int64_overflow.ml, ocaml, ocamldep, quiet, traverse }
-ocamlfind ocamldep -package num -modules int64_overflow.ml > int64_overflow.ml.depends # cached
+ocamlfind ocamldep -package num -modules int64_overflow.ml > int64_overflow.ml.depends
 # Target: int64_overflow.cmx, tags: { package(num), compile, extension:cmx, extension:ml, file:int64_overflow.cmx, file:int64_overflow.ml, implem, native, ocaml, quiet, traverse }
-ocamlfind ocamlopt -c -package num -I x86 -I util -o int64_overflow.cmx int64_overflow.ml # cached
+ocamlfind ocamlopt -c -package num -I x86 -I util -o int64_overflow.cmx int64_overflow.ml
 # Target: x86/x86.cmx, tags: { compile, extension:cmx, extension:ml, file:x86/x86.cmx, file:x86/x86.ml, implem, native, ocaml, quiet, traverse }
-ocamlfind ocamlopt -c -I x86 -I util -o x86/x86.cmx x86/x86.ml # cached
+ocamlfind ocamlopt -c -I x86 -I util -o x86/x86.cmx x86/x86.ml
 # Target: simulator.cmx, tags: { package(num), compile, extension:cmx, extension:ml, file:simulator.cmx, file:simulator.ml, implem, native, ocaml, quiet, traverse }
 ocamlfind ocamlopt -c -package num -I x86 -I util -o simulator.cmx simulator.ml
 # Target: gradedtests.cmx, tags: { package(num), compile, extension:cmx, extension:ml, file:gradedtests.cmx, file:gradedtests.ml, implem, native, ocaml, quiet, traverse }
 ocamlfind ocamlopt -c -package num -I x86 -I util -o gradedtests.cmx gradedtests.ml
+# Target: sp15_tests.cmx, tags: { package(num), compile, extension:cmx, extension:ml, file:sp15_tests.cmx, file:sp15_tests.ml, implem, native, ocaml, quiet, traverse }
+ocamlfind ocamlopt -c -package num -I x86 -I util -o sp15_tests.cmx sp15_tests.ml
+# Target: sp17_tests.cmx, tags: { package(num), compile, extension:cmx, extension:ml, file:sp17_tests.cmx, file:sp17_tests.ml, implem, native, ocaml, quiet, traverse }
+ocamlfind ocamlopt -c -package num -I x86 -I util -o sp17_tests.cmx sp17_tests.ml
+# Target: sp18_tests.cmx, tags: { package(num), compile, extension:cmx, extension:ml, file:sp18_tests.cmx, file:sp18_tests.ml, implem, native, ocaml, quiet, traverse }
+ocamlfind ocamlopt -c -package num -I x86 -I util -o sp18_tests.cmx sp18_tests.ml
+# Target: sp20_tests.cmx, tags: { package(num), compile, extension:cmx, extension:ml, file:sp20_tests.cmx, file:sp20_tests.ml, implem, native, ocaml, quiet, traverse }
+ocamlfind ocamlopt -c -package num -I x86 -I util -o sp20_tests.cmx sp20_tests.ml
++ ocamlfind ocamlopt -c -package num -I x86 -I util -o sp20_tests.cmx sp20_tests.ml
+File "sp20_tests.ml", line 1149, characters 6-16:
+1149 |   let helloworld = [ text "foo"
+             ^^^^^^^^^^
+Warning 26 [unused-var]: unused variable helloworld.
+File "sp20_tests.ml", line 1166, characters 6-15:
+1166 |   let leaq_prog: prog = [
+             ^^^^^^^^^
+Warning 26 [unused-var]: unused variable leaq_prog.
 # Target: studenttests.cmx, tags: { package(num), compile, extension:cmx, extension:ml, file:studenttests.cmx, file:studenttests.ml, implem, native, ocaml, quiet, traverse }
 ocamlfind ocamlopt -c -package num -I x86 -I util -o studenttests.cmx studenttests.ml
 # Target: main.cmx, tags: { package(num), compile, extension:cmx, extension:ml, file:main.cmx, file:main.ml, implem, native, ocaml, quiet, traverse }
 ocamlfind ocamlopt -c -package num -I x86 -I util -o main.cmx main.ml
 # Target: main.native, tags: { package(num), dont_link_with, extension:native, file:main.native, link, native, ocaml, program, quiet, traverse }
-ocamlfind ocamlopt unix.cmxa str.cmxa -linkpkg -package num -I x86 -I util int64_overflow.cmx x86/x86.cmx simulator.cmx util/assert.cmx gradedtests.cmx studenttests.cmx main.cmx -o main.native
+ocamlfind ocamlopt unix.cmxa str.cmxa -linkpkg -package num -I x86 -I util int64_overflow.cmx x86/x86.cmx simulator.cmx util/assert.cmx gradedtests.cmx sp15_tests.cmx sp17_tests.cmx sp18_tests.cmx sp20_tests.cmx studenttests.cmx main.cmx -o main.native
 # Compilation successful.

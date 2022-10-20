@@ -3,5 +3,9 @@ Dune__exe
 Gradedtests
 Int64_overflow
 Simulator
+Sp15_tests
+Sp17_tests
+Sp18_tests
+Sp20_tests
 Studenttests
 X86
