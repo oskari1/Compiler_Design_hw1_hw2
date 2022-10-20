@@ -6,6 +6,22 @@ open Asm
 (* You can use this file for additional test cases to help your *)
 (* implementation.                                              *)
 
+let machine_test (s:string) (n: int) (m: mach) (f:mach -> bool) () =
+  for i=1 to n do print_endline ("rip = " ^ (Int64.to_string (m.regs.(rind(Rip)))) ^ " rsp = " ^ (Int64.to_string (m.regs.(rind(Rsp)))));step m done;
+  print_endline ("rip = " ^ (Int64.to_string (m.regs.(rind(Rip)))) ^ " rsp = " ^ (Int64.to_string (m.regs.(rind(Rsp)))));
+  if (f m) then () else failwith ("expected " ^ s ^ "but got rip = " ^ (Int64.to_string (m.regs.(rind(Rip)))) ^ " rsp = " ^ (Int64.to_string (m.regs.(rind(Rsp))))) 
+
+let test_machine (bs: sbyte list): mach =
+  let mem = (Array.make mem_size (Byte '\x00')) in
+  Array.blit (Array.of_list bs) 0 mem 0 (List.length bs);
+  let regs = Array.make nregs 0L in
+  regs.(rind Rip) <- mem_bot;
+  regs.(rind Rsp) <- Int64.sub mem_top 8L;
+  { flags = {fo = false; fs = false; fz = false};
+    regs = regs;
+    mem = mem
+  }
+
 (* some useful constructs *)
 let redefinedsym_test (p:prog) () =
   try ignore (assemble p);
@@ -469,11 +485,16 @@ let jmp_ind_3 = fun () -> Gradedtests.test_machine
   ;InsB0 (Jmp, [Ind3 (Lit 8L, Rax)]);InsFrag;InsFrag;InsFrag;InsFrag;InsFrag;InsFrag;InsFrag
   ]
 
+let callq = fun (src:quad) -> test_machine
+  [InsB0 (Movq,  [Imm (Lit src); Ind1 (Lit src)]);InsFrag;InsFrag;InsFrag;InsFrag;InsFrag;InsFrag;InsFrag
+  ;InsB0 (Callq, [Ind1 (Lit src)]);InsFrag;InsFrag;InsFrag;InsFrag;InsFrag;InsFrag;InsFrag
+  ]
+(*
 let callq = fun (src:quad) -> Gradedtests.test_machine
   [InsB0 (Movq,  [Imm (Lit src); Ind1 (Lit src)]);InsFrag;InsFrag;InsFrag;InsFrag;InsFrag;InsFrag;InsFrag
   ;InsB0 (Callq, [Ind1 (Lit src)]);InsFrag;InsFrag;InsFrag;InsFrag;InsFrag;InsFrag;InsFrag
   ]
-
+*)
 let ret = fun () -> Gradedtests.test_machine
   [InsB0 (Movq,  [Imm (Lit 4194328L); ~%Rax]);InsFrag;InsFrag;InsFrag;InsFrag;InsFrag;InsFrag;InsFrag
   ;InsB0 (Callq, [~%Rax]);InsFrag;InsFrag;InsFrag;InsFrag;InsFrag;InsFrag;InsFrag
@@ -562,7 +583,7 @@ let instruction_tests = [
   ("jmp_ind3", Gradedtests.machine_test "rip=4194328L" 3 (jmp_ind_3 ())
     (fun m -> m.regs.(rind Rip) = Int64.add mem_bot 24L)
   );
-  ("call", Gradedtests.machine_test "rip=4194328L rsp=4259824L" 2 (callq 4194328L)
+  ("call", machine_test "rip=4194328L rsp=4259824L" 2 (callq 4194328L)
     (fun m -> m.regs.(rind Rip) = 4194328L
            && m.regs.(rind Rsp) = Int64.sub mem_top 16L
            (* Stack contains next instruction to be called in the caller. *)

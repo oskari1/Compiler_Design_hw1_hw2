@@ -250,10 +250,14 @@ let rec update_state_non_ALU (op:opcode) (operands : operand list) (m:mach) :uni
       write m (Reg Rsp) (Int64.add rsp_val 8L)
     end
   | Jmp -> let src = read m (List.hd operands) in write m (Reg Rip) src
-  | Callq -> let src = List.hd operands in 
+  | Callq ->  
     begin 
-      update_state_non_ALU Pushq [Reg Rip] m; 
-      update_state_non_ALU Jmp [src] m;
+      let src_val = read m (List.hd operands) in
+      let rsp_val = read m (Reg Rsp) in
+      let rip_val = read m (Reg Rip) in
+      write m (Reg Rsp) (Int64.sub rsp_val 8L);
+      write m (Ind2 Rsp) (Int64.add rip_val 8L);  
+      write m (Reg Rip) src_val
     end
   | Retq -> update_state_non_ALU Popq [Reg Rip] m
   | J cc -> 
