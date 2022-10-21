@@ -4,6 +4,7 @@ Dune__exe
 Gradedtests
 Int64_overflow
 Kek
+Mergesort
 Shift_test
 Simulator
 Sp15_tests

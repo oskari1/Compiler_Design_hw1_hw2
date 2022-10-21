@@ -1,1 +1,1 @@
-tests/kek.ml: Asm Assert Simulator X86
+kek.ml: Asm Assert Simulator X86

@@ -294,7 +294,7 @@ let rec set_cc_binary_ALU (m:mach) (result:quad) (op:opcode) (src_val:quad) (dst
     end in
   match op with
   | Addq -> set_flags Int64_overflow.add  
-  | Subq -> set_flags Int64_overflow.sub
+  | Subq -> set_flags Int64_overflow.sub; if src_val = Int64.min_int then m.flags.fo <- true 
   | Imulq -> set_flags Int64_overflow.mul
   | Andq -> 
     begin
@@ -342,7 +342,7 @@ let update_state_binary_ALU (op:opcode) (operands : operand list) (m:mach) :unit
     begin 
       match op with
       | Addq -> apply_binary_op Int64.add  
-      | (Subq | Cmpq) -> apply_binary_op Int64.sub
+      | (Subq | Cmpq) -> apply_binary_op Int64.sub 
       | Imulq -> apply_binary_op Int64.mul
       | Andq -> apply_binary_op Int64.logand
       | Orq -> apply_binary_op Int64.logor

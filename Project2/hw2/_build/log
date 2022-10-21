@@ -3,7 +3,7 @@
 # Shared cache: disabled
 # Workspace root: /Users/ojyrkinen/Compiler_Design/Project2/hw2
 # Auto-detected concurrency: 8
-$ /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -config > /var/folders/xn/27gmfwp50gz7lt1pd7wmgvhm0000gn/T/dune_f18260_output
+$ /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -config > /var/folders/xn/27gmfwp50gz7lt1pd7wmgvhm0000gn/T/dune_8f2750_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -112,20 +112,21 @@ $ /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -config > /var/folders/xn/27gmfwp
 #  }
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl main.ml) > _build/default/.main.eobjs/main.ml.d
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -intf util/assert.mli) > _build/default/.main.eobjs/assert.mli.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl mergesort.ml) > _build/default/.main.eobjs/mergesort.ml.d
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl gradedtests.ml) > _build/default/.main.eobjs/gradedtests.ml.d
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl simulator.ml) > _build/default/.main.eobjs/simulator.ml.d
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl sp15_tests.ml) > _build/default/.main.eobjs/sp15_tests.ml.d
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl sp17_tests.ml) > _build/default/.main.eobjs/sp17_tests.ml.d
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl sp18_tests.ml) > _build/default/.main.eobjs/sp18_tests.ml.d
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl x86/x86.ml) > _build/default/.main.eobjs/x86.ml.d
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl sp20_tests.ml) > _build/default/.main.eobjs/sp20_tests.ml.d
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl studenttests.ml) > _build/default/.main.eobjs/studenttests.ml.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl x86/x86.ml) > _build/default/.main.eobjs/x86.ml.d
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -intf int64_overflow.mli) > _build/default/.main.eobjs/int64_overflow.mli.d
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl tests/xor_test.ml) > _build/default/.main.eobjs/xor_test.ml.d
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl tests/add_test.ml) > _build/default/.main.eobjs/add_test.ml.d
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl tests/sub_test.ml) > _build/default/.main.eobjs/sub_test.ml.d
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl tests/shift_test.ml) > _build/default/.main.eobjs/shift_test.ml.d
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl tests/kek.ml) > _build/default/.main.eobjs/kek.ml.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl studenttests.ml) > _build/default/.main.eobjs/studenttests.ml.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl add_test.ml) > _build/default/.main.eobjs/add_test.ml.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl sub_test.ml) > _build/default/.main.eobjs/sub_test.ml.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl xor_test.ml) > _build/default/.main.eobjs/xor_test.ml.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl shift_test.ml) > _build/default/.main.eobjs/shift_test.ml.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl kek.ml) > _build/default/.main.eobjs/kek.ml.d
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl util/assert.ml) > _build/default/.main.eobjs/assert.ml.d
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl int64_overflow.ml) > _build/default/.main.eobjs/int64_overflow.ml.d
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -o .main.eobjs/byte/dune__exe.cmo -c -impl .main.eobjs/dune__exe.ml-gen)
@@ -140,11 +141,24 @@ $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5.
 > 130 |   | [ Imm i ; dst ] as args ->
 >                     ^^^
 > Warning 27 [unused-var-strict]: unused variable dst.
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml-gen -no-alias-deps -opaque -o .main.eobjs/native/dune__exe.cmx -c -impl .main.eobjs/dune__exe.ml-gen)
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Simulator.cmo -c -impl simulator.ml)
 > File "simulator.ml", line 123, characters 6-7:
 > 123 |     | o -> ()
 >             ^
 > Warning 27 [unused-var-strict]: unused variable o.
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Int64_overflow.cmx -c -impl int64_overflow.ml)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Assert.cmx -c -impl util/assert.ml)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__X86.cmx -c -impl x86/x86.ml)
+> File "x86/x86.ml", line 130, characters 10-11:
+> 130 |   | [ Imm i ; dst ] as args ->
+>                 ^
+> Warning 27 [unused-var-strict]: unused variable i.
+> File "x86/x86.ml", line 130, characters 14-17:
+> 130 |   | [ Imm i ; dst ] as args ->
+>                     ^^^
+> Warning 27 [unused-var-strict]: unused variable dst.
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Mergesort.cmo -c -impl mergesort.ml)
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Gradedtests.cmo -c -impl gradedtests.ml)
 > File "gradedtests.ml", line 137, characters 2-30:
 > 137 |   for i=1 to n do step m' done;
@@ -158,34 +172,22 @@ $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5.
 > 166 |   for i=1 to n do step m done;
 >         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 > Warning 35 [unused-for-index]: unused for-loop index i.
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Sp15_tests.cmo -c -impl sp15_tests.ml)
-> File "sp15_tests.ml", line 310, characters 7-8:
-> 310 |     | [x] -> true
->              ^
-> Warning 27 [unused-var-strict]: unused variable x.
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Sp17_tests.cmo -c -impl sp17_tests.ml)
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml-gen -no-alias-deps -opaque -o .main.eobjs/native/dune__exe.cmx -c -impl .main.eobjs/dune__exe.ml-gen)
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Int64_overflow.cmx -c -impl int64_overflow.ml)
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__X86.cmx -c -impl x86/x86.ml)
-> File "x86/x86.ml", line 130, characters 10-11:
-> 130 |   | [ Imm i ; dst ] as args ->
->                 ^
-> Warning 27 [unused-var-strict]: unused variable i.
-> File "x86/x86.ml", line 130, characters 14-17:
-> 130 |   | [ Imm i ; dst ] as args ->
->                     ^^^
-> Warning 27 [unused-var-strict]: unused variable dst.
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Assert.cmx -c -impl util/assert.ml)
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Simulator.cmx -c -impl simulator.ml)
 > File "simulator.ml", line 123, characters 6-7:
 > 123 |     | o -> ()
 >             ^
 > Warning 27 [unused-var-strict]: unused variable o.
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Sp17_tests.cmo -c -impl sp17_tests.ml)
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Sp18_tests.cmo -c -impl sp18_tests.ml)
 > File "sp18_tests.ml", line 419, characters 4-31:
 > 419 |     for i=1 to n do step m done;
 >           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 > Warning 35 [unused-for-index]: unused for-loop index i.
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Sp15_tests.cmo -c -impl sp15_tests.ml)
+> File "sp15_tests.ml", line 310, characters 7-8:
+> 310 |     | [x] -> true
+>              ^
+> Warning 27 [unused-var-strict]: unused variable x.
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Sp20_tests.cmo -c -impl sp20_tests.ml)
 > File "sp20_tests.ml", line 437, characters 11-27:
 > 437 | 	  let rec add_args_to_prog (p2:prog) (arg3:int64) (arg4:int64) : prog =	
@@ -207,7 +209,7 @@ $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5.
 > 1166 |   let leaq_prog: prog = [
 >              ^^^^^^^^^
 > Warning 26 [unused-var]: unused variable leaq_prog.
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Xor_test.cmo -c -impl tests/xor_test.ml)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Mergesort.cmx -c -impl mergesort.ml)
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Gradedtests.cmx -c -impl gradedtests.ml)
 > File "gradedtests.ml", line 137, characters 2-30:
 > 137 |   for i=1 to n do step m' done;
@@ -221,21 +223,16 @@ $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@
 > 166 |   for i=1 to n do step m done;
 >         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 > Warning 35 [unused-for-index]: unused for-loop index i.
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Add_test.cmo -c -impl tests/add_test.ml)
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Sub_test.cmo -c -impl tests/sub_test.ml)
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Xor_test.cmx -c -impl tests/xor_test.ml)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Xor_test.cmo -c -impl xor_test.ml)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Sub_test.cmo -c -impl sub_test.ml)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Add_test.cmo -c -impl add_test.ml)
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Sp18_tests.cmx -c -impl sp18_tests.ml)
 > File "sp18_tests.ml", line 419, characters 4-31:
 > 419 |     for i=1 to n do step m done;
 >           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 > Warning 35 [unused-for-index]: unused for-loop index i.
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Sp17_tests.cmx -c -impl sp17_tests.ml)
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Sp15_tests.cmx -c -impl sp15_tests.ml)
-> File "sp15_tests.ml", line 310, characters 7-8:
-> 310 |     | [x] -> true
->              ^
-> Warning 27 [unused-var-strict]: unused variable x.
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Add_test.cmx -c -impl tests/add_test.ml)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Xor_test.cmx -c -impl xor_test.ml)
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Sp20_tests.cmx -c -impl sp20_tests.ml)
 > File "sp20_tests.ml", line 437, characters 11-27:
 > 437 | 	  let rec add_args_to_prog (p2:prog) (arg3:int64) (arg4:int64) : prog =	
@@ -257,9 +254,15 @@ $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@
 > 1166 |   let leaq_prog: prog = [
 >              ^^^^^^^^^
 > Warning 26 [unused-var]: unused variable leaq_prog.
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Shift_test.cmo -c -impl tests/shift_test.ml)
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Kek.cmo -c -impl tests/kek.ml)
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Sub_test.cmx -c -impl tests/sub_test.ml)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Sub_test.cmx -c -impl sub_test.ml)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Sp15_tests.cmx -c -impl sp15_tests.ml)
+> File "sp15_tests.ml", line 310, characters 7-8:
+> 310 |     | [x] -> true
+>              ^
+> Warning 27 [unused-var-strict]: unused variable x.
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Shift_test.cmo -c -impl shift_test.ml)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Add_test.cmx -c -impl add_test.ml)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Kek.cmo -c -impl kek.ml)
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Studenttests.cmo -c -impl studenttests.ml)
 > File "studenttests.ml", line 15, characters 2-148:
 > 15 |   for i=1 to n do print_endline ("rip = " ^ (Int64.to_string (m.regs.(rind(Rip)))) ^ " rsp = " ^ (Int64.to_string (m.regs.(rind(Rsp)))));step m done;
@@ -290,6 +293,10 @@ $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5.
 > 8 | open Sp20_tests
 >     ^^^^^^^^^^^^^^^
 > Warning 33 [unused-open]: unused open Dune__exe.Sp20_tests.
+> File "main.ml", line 9, characters 0-14:
+> 9 | open Mergesort
+>     ^^^^^^^^^^^^^^
+> Warning 33 [unused-open]: unused open Dune__exe.Mergesort.
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Main.cmx -c -impl main.ml)
 > File "main.ml", line 3, characters 0-8:
 > 3 | open X86
@@ -315,11 +322,15 @@ $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@
 > 8 | open Sp20_tests
 >     ^^^^^^^^^^^^^^^
 > Warning 33 [unused-open]: unused open Dune__exe.Sp20_tests.
+> File "main.ml", line 9, characters 0-14:
+> 9 | open Mergesort
+>     ^^^^^^^^^^^^^^
+> Warning 33 [unused-open]: unused open Dune__exe.Mergesort.
 $ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Studenttests.cmx -c -impl studenttests.ml)
 > File "studenttests.ml", line 15, characters 2-148:
 > 15 |   for i=1 to n do print_endline ("rip = " ^ (Int64.to_string (m.regs.(rind(Rip)))) ^ " rsp = " ^ (Int64.to_string (m.regs.(rind(Rsp)))));step m done;
 >        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 > Warning 35 [unused-for-index]: unused for-loop index i.
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Shift_test.cmx -c -impl tests/shift_test.ml)
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Kek.cmx -c -impl tests/kek.ml)
-$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -o main.exe /Users/ojyrkinen/.opam/4.13.1/lib/ocaml/unix.cmxa -I /Users/ojyrkinen/.opam/4.13.1/lib/ocaml /Users/ojyrkinen/.opam/4.13.1/lib/ocaml/str.cmxa -I /Users/ojyrkinen/.opam/4.13.1/lib/ocaml /Users/ojyrkinen/.opam/4.13.1/lib/ocaml/nums.cmxa -I /Users/ojyrkinen/.opam/4.13.1/lib/ocaml -I /Users/ojyrkinen/.opam/4.13.1/lib/ocaml .main.eobjs/native/dune__exe.cmx .main.eobjs/native/dune__exe__Assert.cmx .main.eobjs/native/dune__exe__Int64_overflow.cmx .main.eobjs/native/dune__exe__X86.cmx .main.eobjs/native/dune__exe__Simulator.cmx .main.eobjs/native/dune__exe__Gradedtests.cmx .main.eobjs/native/dune__exe__Add_test.cmx .main.eobjs/native/dune__exe__Kek.cmx .main.eobjs/native/dune__exe__Shift_test.cmx .main.eobjs/native/dune__exe__Sp15_tests.cmx .main.eobjs/native/dune__exe__Sp17_tests.cmx .main.eobjs/native/dune__exe__Sp18_tests.cmx .main.eobjs/native/dune__exe__Sp20_tests.cmx .main.eobjs/native/dune__exe__Sub_test.cmx .main.eobjs/native/dune__exe__Xor_test.cmx .main.eobjs/native/dune__exe__Studenttests.cmx .main.eobjs/native/dune__exe__Main.cmx)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Shift_test.cmx -c -impl shift_test.ml)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Kek.cmx -c -impl kek.ml)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -o main.exe /Users/ojyrkinen/.opam/4.13.1/lib/ocaml/unix.cmxa -I /Users/ojyrkinen/.opam/4.13.1/lib/ocaml /Users/ojyrkinen/.opam/4.13.1/lib/ocaml/str.cmxa -I /Users/ojyrkinen/.opam/4.13.1/lib/ocaml /Users/ojyrkinen/.opam/4.13.1/lib/ocaml/nums.cmxa -I /Users/ojyrkinen/.opam/4.13.1/lib/ocaml -I /Users/ojyrkinen/.opam/4.13.1/lib/ocaml .main.eobjs/native/dune__exe.cmx .main.eobjs/native/dune__exe__Assert.cmx .main.eobjs/native/dune__exe__Int64_overflow.cmx .main.eobjs/native/dune__exe__X86.cmx .main.eobjs/native/dune__exe__Simulator.cmx .main.eobjs/native/dune__exe__Gradedtests.cmx .main.eobjs/native/dune__exe__Add_test.cmx .main.eobjs/native/dune__exe__Kek.cmx .main.eobjs/native/dune__exe__Mergesort.cmx .main.eobjs/native/dune__exe__Shift_test.cmx .main.eobjs/native/dune__exe__Sp15_tests.cmx .main.eobjs/native/dune__exe__Sp17_tests.cmx .main.eobjs/native/dune__exe__Sp18_tests.cmx .main.eobjs/native/dune__exe__Sp20_tests.cmx .main.eobjs/native/dune__exe__Sub_test.cmx .main.eobjs/native/dune__exe__Xor_test.cmx .main.eobjs/native/dune__exe__Studenttests.cmx .main.eobjs/native/dune__exe__Main.cmx)

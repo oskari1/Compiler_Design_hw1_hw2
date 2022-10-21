@@ -224,3 +224,8 @@ let mergesort_test () =
   if (get_sorted_list m) <> (List.sort Int64.compare src)
   then failwith (Printf.sprintf "merge sort failed")
   else ()
+
+let other_team_tests = Test("Mergesort", [
+  ("mergesort", (mergesort_test))
+])
+let provided_tests : suite = [ other_team_tests ]

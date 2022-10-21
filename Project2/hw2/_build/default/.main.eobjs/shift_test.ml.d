@@ -1,1 +1,1 @@
-tests/shift_test.ml: Array Gradedtests Int64 Printf Simulator X86
+shift_test.ml: Array Gradedtests Int64 Printf Simulator X86
