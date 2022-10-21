@@ -1,6 +1,11 @@
+Add_test
 Assert
 Dune__exe
 Gradedtests
 Int64_overflow
+Kek
+Shift_test
 Simulator
+Sub_test
 X86
+Xor_test

@@ -185,8 +185,7 @@ let rec read (m:mach) (operand:operand) : quad =
   match operand with
   | Imm (Lit lit) -> lit
   | Reg reg -> m.regs.(rind reg)
-(*  | Ind1 (Lit lit) -> let fetched_sbytes = read_quad_from_mem (m.mem) lit in int64_of_sbytes fetched_sbytes*) 
-  | Ind1 (Lit lit) -> lit 
+  | Ind1 (Lit lit) -> let fetched_sbytes = read_quad_from_mem (m.mem) lit in int64_of_sbytes fetched_sbytes
   | Ind2 reg -> let fetched_sbytes = read_quad_from_mem (m.mem) (read m (Reg reg)) in int64_of_sbytes fetched_sbytes
   | Ind3 (Lit lit, reg) ->  let fetched_sbytes = read_quad_from_mem (m.mem) (Int64.add lit (read m (Reg reg))) in int64_of_sbytes fetched_sbytes
   | _ -> raise X86lite_segfault
@@ -295,7 +294,7 @@ let rec set_cc_binary_ALU (m:mach) (result:quad) (op:opcode) (src_val:quad) (dst
     end in
   match op with
   | Addq -> set_flags Int64_overflow.add  
-  | Subq -> set_flags Int64_overflow.sub
+  | Subq -> set_flags Int64_overflow.sub; if src_val = Int64.min_int then m.flags.fo <- true 
   | Imulq -> set_flags Int64_overflow.mul
   | Andq -> 
     begin
@@ -343,7 +342,7 @@ let update_state_binary_ALU (op:opcode) (operands : operand list) (m:mach) :unit
     begin 
       match op with
       | Addq -> apply_binary_op Int64.add  
-      | (Subq | Cmpq) -> apply_binary_op Int64.sub
+      | (Subq | Cmpq) -> apply_binary_op Int64.sub 
       | Imulq -> apply_binary_op Int64.mul
       | Andq -> apply_binary_op Int64.logand
       | Orq -> apply_binary_op Int64.logor

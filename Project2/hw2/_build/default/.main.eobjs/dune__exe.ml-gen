@@ -1,3 +1,7 @@
+(** @canonical Dune__exe.Add_test *)
+module Add_test = Dune__exe__Add_test
+
+
 (** @canonical Dune__exe.Assert *)
 module Assert = Dune__exe__Assert
 
@@ -10,12 +14,24 @@ module Gradedtests = Dune__exe__Gradedtests
 module Int64_overflow = Dune__exe__Int64_overflow
 
 
+(** @canonical Dune__exe.Invalid_test *)
+module Invalid_test = Dune__exe__Invalid_test
+
+
+(** @canonical Dune__exe.Kek *)
+module Kek = Dune__exe__Kek
+
+
 (** @canonical Dune__exe.Main *)
 module Main = Dune__exe__Main
 
 
 (** @canonical Dune__exe.Mergesort *)
 module Mergesort = Dune__exe__Mergesort
+
+
+(** @canonical Dune__exe.Shift_test *)
+module Shift_test = Dune__exe__Shift_test
 
 
 (** @canonical Dune__exe.Simulator *)
@@ -42,5 +58,13 @@ module Sp20_tests = Dune__exe__Sp20_tests
 module Studenttests = Dune__exe__Studenttests
 
 
+(** @canonical Dune__exe.Sub_test *)
+module Sub_test = Dune__exe__Sub_test
+
+
 (** @canonical Dune__exe.X86 *)
 module X86 = Dune__exe__X86
+
+
+(** @canonical Dune__exe.Xor_test *)
+module Xor_test = Dune__exe__Xor_test

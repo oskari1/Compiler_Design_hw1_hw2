@@ -1,11 +1,16 @@
+Add_test
 Assert
 Dune__exe
 Gradedtests
 Int64_overflow
+Kek
+Shift_test
 Simulator
 Sp15_tests
 Sp17_tests
 Sp18_tests
 Sp20_tests
 Studenttests
+Sub_test
 X86
+Xor_test

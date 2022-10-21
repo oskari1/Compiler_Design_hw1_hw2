@@ -2,6 +2,11 @@ open Assert
 open X86
 open Simulator
 open Asm
+open Xor_test
+open Add_test
+open Sub_test
+open Shift_test
+open Kek
 
 (* You can use this file for additional test cases to help your *)
 (* implementation.                                              *)
@@ -709,7 +714,7 @@ let georgr_insn_tests = [
 ]
 
 let provided_tests : suite = [
-  (*Test ("Debug: End-to-end Tests", [
+  Test ("Debug: End-to-end Tests", [
     ("empty main", Gradedtests.program_test [empty_main] 0L)
     ; ("negq", Gradedtests.program_test (main_driver::negq) (Int64.neg 99L) )
     ; ("addq", Gradedtests.program_test (main_driver::addq) 3L )
@@ -719,7 +724,7 @@ let provided_tests : suite = [
     ; ("parse_int_3", Gradedtests.program_test (parse_int "0101" 16) 0x0101L)
     ; ("parse_int_4", Gradedtests.program_test (parse_int "0101" 2) 0b0101L)
     ; ("parse_int_5", Gradedtests.program_test (parse_int "6543" 8) 0o6543L)
-  ]);*)
+  ]);
   Test ("Debug: Lookup Table Generation", [
     ("redefined sym", redefinedsym_test [text "main" [Retq,[]]; text "main" [Retq,[]]])
     ; ("redefined sym", redefinedsym_test [text "a" []; text "main" [Retq,[]]; text "a" [Retq,[]]])
@@ -737,7 +742,7 @@ let provided_tests : suite = [
     ; ("prog_mov_ind3", Gradedtests.program_test prog_mov_ind3 39L)
     ; ("prog_dec_reg", Gradedtests.program_test prog_dec_reg 11L)
     ; ("prog_shift by variable amount", Gradedtests.program_test prog_shift 29L)
-  ]);(*
+  ]);
   Test ("Debug End-to-end Log Tests", [
     ("log 1", Gradedtests.program_test (log 1L) (0L))
     ; ("log 2", Gradedtests.program_test (log 2L) (1L))
@@ -746,6 +751,10 @@ let provided_tests : suite = [
     ; ("log 15630003", Gradedtests.program_test (log 15630003L) (23L))
     ; ("log 2^63-1", Gradedtests.program_test (log 0x7fffffffffffffffL) (62L))
   ]);
-  Test ("Debug: georgr's redundant instruction tests", georgr_insn_tests) *)
-
+  Test ("Debug: georgr's redundant instruction tests", georgr_insn_tests);
+  Test ("all_the_xor", xor_tests);
+  Test ("all_the_add", add_tests);
+  Test ("all_the_sub", sub_tests);
+  Test ("all_the_shift", shift_tests);
+  Test ("all_the_kek", kek_tests);
 ]
