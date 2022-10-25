@@ -1,0 +1,538 @@
+# dune build
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Workspace root: /Users/ojyrkinen/Compiler_Design/Project3
+# Auto-detected concurrency: 8
+$ /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -config > /var/folders/xn/27gmfwp50gz7lt1pd7wmgvhm0000gn/T/dune_72c8ee_output
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dev
+#  ; merlin = true
+#  ; for_host = None
+#  ; fdo_target_exe = None
+#  ; build_dir = "default"
+#  ; toplevel_path = Some External "/Users/ojyrkinen/.opam/4.13.1/lib/toplevel"
+#  ; ocaml_bin = External "/Users/ojyrkinen/.opam/4.13.1/bin"
+#  ; ocaml = Ok External "/Users/ojyrkinen/.opam/4.13.1/bin/ocaml"
+#  ; ocamlc = External "/Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt"
+#  ; ocamlopt = Ok External "/Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt"
+#  ; ocamldep = Ok External "/Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt"
+#  ; ocamlmklib =
+#      Ok External "/Users/ojyrkinen/.opam/4.13.1/bin/ocamlmklib.opt"
+#  ; env =
+#      map
+#        { "DUNE_OCAML_HARDCODED" : "/Users/ojyrkinen/.opam/4.13.1/lib"
+#        ; "DUNE_OCAML_STDLIB" : "/Users/ojyrkinen/.opam/4.13.1/lib/ocaml"
+#        ; "DUNE_SOURCEROOT" : "/Users/ojyrkinen/Compiler_Design/Project3"
+#        ; "INSIDE_DUNE" :
+#            "/Users/ojyrkinen/Compiler_Design/Project3/_build/default"
+#        ; "OCAMLFIND_IGNORE_DUPS_IN" :
+#            "/Users/ojyrkinen/Compiler_Design/Project3/_build/install/default/lib"
+#        ; "OCAMLPATH" :
+#            "/Users/ojyrkinen/Compiler_Design/Project3/_build/install/default/lib"
+#        ; "OCAMLTOP_INCLUDE_PATH" :
+#            "/Users/ojyrkinen/Compiler_Design/Project3/_build/install/default/lib/toplevel"
+#        ; "OCAML_COLOR" : "always"
+#        ; "OPAMCOLOR" : "always"
+#        }
+#  ; findlib_paths = [ External "/Users/ojyrkinen/.opam/4.13.1/lib" ]
+#  ; arch_sixtyfour = true
+#  ; natdynlink_supported = true
+#  ; supports_shared_libraries = true
+#  ; ocaml_config =
+#      { version = "4.13.1"
+#      ; standard_library_default = "/Users/ojyrkinen/.opam/4.13.1/lib/ocaml"
+#      ; standard_library = "/Users/ojyrkinen/.opam/4.13.1/lib/ocaml"
+#      ; standard_runtime = "the_standard_runtime_variable_was_deleted"
+#      ; ccomp_type = "cc"
+#      ; c_compiler = "cc"
+#      ; ocamlc_cflags =
+#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-pthread" ]
+#      ; ocamlc_cppflags = [ "-D_FILE_OFFSET_BITS=64" ]
+#      ; ocamlopt_cflags =
+#          [ "-O2"; "-fno-strict-aliasing"; "-fwrapv"; "-pthread" ]
+#      ; ocamlopt_cppflags = [ "-D_FILE_OFFSET_BITS=64" ]
+#      ; bytecomp_c_compiler =
+#          [ "cc"
+#          ; "-O2"
+#          ; "-fno-strict-aliasing"
+#          ; "-fwrapv"
+#          ; "-pthread"
+#          ; "-D_FILE_OFFSET_BITS=64"
+#          ]
+#      ; bytecomp_c_libraries = [ "-lm"; "-lpthread" ]
+#      ; native_c_compiler =
+#          [ "cc"
+#          ; "-O2"
+#          ; "-fno-strict-aliasing"
+#          ; "-fwrapv"
+#          ; "-pthread"
+#          ; "-D_FILE_OFFSET_BITS=64"
+#          ]
+#      ; native_c_libraries = [ "-lm" ]
+#      ; native_pack_linker = [ "ld"; "-r"; "-o" ]
+#      ; cc_profile = []
+#      ; architecture = "arm64"
+#      ; model = "default"
+#      ; int_size = 63
+#      ; word_size = 64
+#      ; system = "macosx"
+#      ; asm = [ "cc"; "-c"; "-Wno-trigraphs" ]
+#      ; asm_cfi_supported = true
+#      ; with_frame_pointers = false
+#      ; ext_exe = ""
+#      ; ext_obj = ".o"
+#      ; ext_asm = ".s"
+#      ; ext_lib = ".a"
+#      ; ext_dll = ".so"
+#      ; os_type = "Unix"
+#      ; default_executable_name = "a.out"
+#      ; systhread_supported = true
+#      ; host = "aarch64-apple-darwin21.6.0"
+#      ; target = "aarch64-apple-darwin21.6.0"
+#      ; profiling = false
+#      ; flambda = false
+#      ; spacetime = false
+#      ; safe_string = true
+#      ; exec_magic_number = "Caml1999X030"
+#      ; cmi_magic_number = "Caml1999I030"
+#      ; cmo_magic_number = "Caml1999O030"
+#      ; cma_magic_number = "Caml1999A030"
+#      ; cmx_magic_number = "Caml1999Y030"
+#      ; cmxa_magic_number = "Caml1999Z030"
+#      ; ast_impl_magic_number = "Caml1999M030"
+#      ; ast_intf_magic_number = "Caml1999N030"
+#      ; cmxs_magic_number = "Caml1999D030"
+#      ; cmt_magic_number = "Caml1999T030"
+#      ; natdynlink_supported = true
+#      ; supports_shared_libraries = true
+#      ; windows_unicode = false
+#      }
+#  }
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl main.ml) > _build/default/.main.eobjs/main.ml.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl driver.ml) > _build/default/.main.eobjs/driver.ml.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl gradedtests.ml) > _build/default/.main.eobjs/gradedtests.ml.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl studenttests.ml) > _build/default/.main.eobjs/studenttests.ml.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -intf util/assert.mli) > _build/default/.main.eobjs/assert.mli.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl ll/ll.ml) > _build/default/.main.eobjs/ll.ml.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl util/platform.ml) > _build/default/.main.eobjs/platform.ml.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl backend.ml) > _build/default/.main.eobjs/backend.ml.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl ll/llinterp.ml) > _build/default/.main.eobjs/llinterp.ml.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl ll/llutil.ml) > _build/default/.main.eobjs/llutil.ml.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl x86/x86.ml) > _build/default/.main.eobjs/x86.ml.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -impl util/assert.ml) > _build/default/.main.eobjs/assert.ml.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -o .main.eobjs/byte/dune__exe.cmo -c -impl .main.eobjs/dune__exe.ml-gen)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamldep.opt -modules -intf main.mli) > _build/default/.main.eobjs/main.mli.d
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Ll.cmo -c -impl ll/ll.ml)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Assert.cmi -c -intf util/assert.mli)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Main.cmi -c -intf main.mli)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Platform.cmo -c -impl util/platform.ml)
+> File "util/platform.ml", line 77, characters 10-27:
+> 77 |     flush Pervasives.stdout )
+>                ^^^^^^^^^^^^^^^^^
+> Alert deprecated: module Stdlib.Pervasives
+> Use Stdlib instead.
+>
+> If you need to stay compatible with OCaml < 4.07, you can use the 
+> stdlib-shims library: https://github.com/ocaml/stdlib-shims
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__X86.cmo -c -impl x86/x86.ml)
+> File "x86/x86.ml", line 130, characters 10-11:
+> 130 |   | [ Imm i ; dst ] as args ->
+>                 ^
+> Warning 27 [unused-var-strict]: unused variable i.
+> File "x86/x86.ml", line 130, characters 14-17:
+> 130 |   | [ Imm i ; dst ] as args ->
+>                     ^^^
+> Warning 27 [unused-var-strict]: unused variable dst.
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Studenttests.cmo -c -impl studenttests.ml)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Llutil.cmo -c -impl ll/llutil.ml)
+> File "ll/llutil.ml", line 134, characters 2-20:
+> 134 |   Pervasives.compare
+>         ^^^^^^^^^^^^^^^^^^
+> Alert deprecated: module Stdlib.Pervasives
+> Use Stdlib instead.
+>
+> If you need to stay compatible with OCaml < 4.07, you can use the 
+> stdlib-shims library: https://github.com/ocaml/stdlib-shims
+> File "ll/llutil.ml", line 132, characters 16-17:
+> 132 |   let del_term (u,t) = ("", t)
+>                       ^
+> Warning 27 [unused-var-strict]: unused variable u.
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml-gen -no-alias-deps -opaque -o .main.eobjs/native/dune__exe.cmx -c -impl .main.eobjs/dune__exe.ml-gen)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Backend.cmo -c -impl backend.ml)
+> File "backend.ml", line 142, characters 8-15:
+> 142 | let rec size_ty (tdecls:(tid * ty) list) (t:Ll.ty) : int =
+>               ^^^^^^^
+> Warning 39 [unused-rec-flag]: unused rec flag.
+> File "backend.ml", line 306, characters 17-41:
+> 306 | let compile_prog {tdecls; gdecls; fdecls} : X86.prog =
+>                        ^^^^^^^^^^^^^^^^^^^^^^^^
+> Warning 9 [missing-record-field-pattern]: the following labels are not bound in this record pattern:
+> edecls
+> Either bind these labels explicitly or add '; _' to the pattern.
+> File "backend.ml", line 92, characters 21-25:
+> 92 | let compile_operand (ctxt:ctxt) (dest:X86.operand) : Ll.operand -> ins =
+>                           ^^^^
+> Warning 27 [unused-var-strict]: unused variable ctxt.
+> File "backend.ml", line 92, characters 33-37:
+> 92 | let compile_operand (ctxt:ctxt) (dest:X86.operand) : Ll.operand -> ins =
+>                                       ^^^^
+> Warning 27 [unused-var-strict]: unused variable dest.
+> File "backend.ml", line 142, characters 17-23:
+> 142 | let rec size_ty (tdecls:(tid * ty) list) (t:Ll.ty) : int =
+>                        ^^^^^^
+> Warning 27 [unused-var-strict]: unused variable tdecls.
+> File "backend.ml", line 142, characters 42-43:
+> 142 | let rec size_ty (tdecls:(tid * ty) list) (t:Ll.ty) : int =
+>                                                 ^
+> Warning 27 [unused-var-strict]: unused variable t.
+> File "backend.ml", line 173, characters 17-21:
+> 173 | let compile_gep (ctxt:ctxt) (op : Ll.ty * Ll.operand) (path: Ll.operand list) : ins list =
+>                        ^^^^
+> Warning 27 [unused-var-strict]: unused variable ctxt.
+> File "backend.ml", line 173, characters 29-31:
+> 173 | let compile_gep (ctxt:ctxt) (op : Ll.ty * Ll.operand) (path: Ll.operand list) : ins list =
+>                                    ^^
+> Warning 27 [unused-var-strict]: unused variable op.
+> File "backend.ml", line 173, characters 55-59:
+> 173 | let compile_gep (ctxt:ctxt) (op : Ll.ty * Ll.operand) (path: Ll.operand list) : ins list =
+>                                                              ^^^^
+> Warning 27 [unused-var-strict]: unused variable path.
+> File "backend.ml", line 201, characters 18-22:
+> 201 | let compile_insn (ctxt:ctxt) ((uid:uid), (i:Ll.insn)) : X86.ins list =
+>                         ^^^^
+> Warning 27 [unused-var-strict]: unused variable ctxt.
+> File "backend.ml", line 201, characters 31-34:
+> 201 | let compile_insn (ctxt:ctxt) ((uid:uid), (i:Ll.insn)) : X86.ins list =
+>                                      ^^^
+> Warning 27 [unused-var-strict]: unused variable uid.
+> File "backend.ml", line 201, characters 42-43:
+> 201 | let compile_insn (ctxt:ctxt) ((uid:uid), (i:Ll.insn)) : X86.ins list =
+>                                                 ^
+> Warning 27 [unused-var-strict]: unused variable i.
+> File "backend.ml", line 224, characters 24-26:
+> 224 | let compile_terminator (fn:string) (ctxt:ctxt) (t:Ll.terminator) : ins list =
+>                               ^^
+> Warning 27 [unused-var-strict]: unused variable fn.
+> File "backend.ml", line 224, characters 36-40:
+> 224 | let compile_terminator (fn:string) (ctxt:ctxt) (t:Ll.terminator) : ins list =
+>                                           ^^^^
+> Warning 27 [unused-var-strict]: unused variable ctxt.
+> File "backend.ml", line 224, characters 48-49:
+> 224 | let compile_terminator (fn:string) (ctxt:ctxt) (t:Ll.terminator) : ins list =
+>                                                       ^
+> Warning 27 [unused-var-strict]: unused variable t.
+> File "backend.ml", line 235, characters 19-21:
+> 235 | let compile_block (fn:string) (ctxt:ctxt) (blk:Ll.block) : ins list =
+>                          ^^
+> Warning 27 [unused-var-strict]: unused variable fn.
+> File "backend.ml", line 235, characters 31-35:
+> 235 | let compile_block (fn:string) (ctxt:ctxt) (blk:Ll.block) : ins list =
+>                                      ^^^^
+> Warning 27 [unused-var-strict]: unused variable ctxt.
+> File "backend.ml", line 235, characters 43-46:
+> 235 | let compile_block (fn:string) (ctxt:ctxt) (blk:Ll.block) : ins list =
+>                                                  ^^^
+> Warning 27 [unused-var-strict]: unused variable blk.
+> File "backend.ml", line 253, characters 13-14:
+> 253 | let arg_loc (n : int) : operand =
+>                    ^
+> Warning 27 [unused-var-strict]: unused variable n.
+> File "backend.ml", line 266, characters 18-22:
+> 266 | let stack_layout (args : uid list) ((block, lbled_blocks):cfg) : layout =
+>                         ^^^^
+> Warning 27 [unused-var-strict]: unused variable args.
+> File "backend.ml", line 266, characters 37-42:
+> 266 | let stack_layout (args : uid list) ((block, lbled_blocks):cfg) : layout =
+>                                            ^^^^^
+> Warning 27 [unused-var-strict]: unused variable block.
+> File "backend.ml", line 266, characters 44-56:
+> 266 | let stack_layout (args : uid list) ((block, lbled_blocks):cfg) : layout =
+>                                                   ^^^^^^^^^^^^
+> Warning 27 [unused-var-strict]: unused variable lbled_blocks.
+> File "backend.ml", line 285, characters 19-25:
+> 285 | let compile_fdecl (tdecls:(tid * ty) list) (name:string) ({ f_ty; f_param; f_cfg }:fdecl) : prog =
+>                          ^^^^^^
+> Warning 27 [unused-var-strict]: unused variable tdecls.
+> File "backend.ml", line 285, characters 44-48:
+> 285 | let compile_fdecl (tdecls:(tid * ty) list) (name:string) ({ f_ty; f_param; f_cfg }:fdecl) : prog =
+>                                                   ^^^^
+> Warning 27 [unused-var-strict]: unused variable name.
+> File "backend.ml", line 285, characters 60-64:
+> 285 | let compile_fdecl (tdecls:(tid * ty) list) (name:string) ({ f_ty; f_param; f_cfg }:fdecl) : prog =
+>                                                                   ^^^^
+> Warning 27 [unused-var-strict]: unused variable f_ty.
+> File "backend.ml", line 285, characters 66-73:
+> 285 | let compile_fdecl (tdecls:(tid * ty) list) (name:string) ({ f_ty; f_param; f_cfg }:fdecl) : prog =
+>                                                                         ^^^^^^^
+> Warning 27 [unused-var-strict]: unused variable f_param.
+> File "backend.ml", line 285, characters 75-80:
+> 285 | let compile_fdecl (tdecls:(tid * ty) list) (name:string) ({ f_ty; f_param; f_cfg }:fdecl) : prog =
+>                                                                                  ^^^^^
+> Warning 27 [unused-var-strict]: unused variable f_cfg.
+> File "backend.ml", line 300, characters 14-16:
+> 300 |   | GBitcast (t1,g,t2) -> compile_ginit g
+>                     ^^
+> Warning 27 [unused-var-strict]: unused variable t1.
+> File "backend.ml", line 300, characters 19-21:
+> 300 |   | GBitcast (t1,g,t2) -> compile_ginit g
+>                          ^^
+> Warning 27 [unused-var-strict]: unused variable t2.
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Ll.cmx -c -impl ll/ll.ml)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Llinterp.cmo -c -impl ll/llinterp.ml)
+> File "ll/llinterp.ml", line 283, characters 16-40:
+> 283 | let interp_prog {tdecls; gdecls; fdecls} (args:string list) : sval =
+>                       ^^^^^^^^^^^^^^^^^^^^^^^^
+> Warning 9 [missing-record-field-pattern]: the following labels are not bound in this record pattern:
+> edecls
+> Either bind these labels explicitly or add '; _' to the pattern.
+> File "ll/llinterp.ml", line 443, characters 8-24:
+> 443 |     let {f_param; f_cfg} = try List.assoc fn fdecls 
+>               ^^^^^^^^^^^^^^^^
+> Warning 9 [missing-record-field-pattern]: the following labels are not bound in this record pattern:
+> f_ty
+> Either bind these labels explicitly or add '; _' to the pattern.
+> File "ll/llinterp.ml", line 47, characters 25-27:
+> 47 |     | _, GBitcast (t1, v,t2) -> mtree_of_gdecl (t1, v)
+>                               ^^
+> Warning 27 [unused-var-strict]: unused variable t2.
+> File "ll/llinterp.ml", line 59, characters 16-17:
+> 59 |     | Array (n, t)  -> MNode Array.(make n (MWord VUndef) |> to_list)
+>                      ^
+> Warning 27 [unused-var-strict]: unused variable t.
+> File "ll/llinterp.ml", line 186, characters 18-19:
+> 186 |      | _,   MWord v  -> failwith "load_idxs: attempted to index into word"
+>                         ^
+> Warning 27 [unused-var-strict]: unused variable v.
+> File "ll/llinterp.ml", line 198, characters 17-18:
+> 198 |      | _,  MWord v  -> failwith "store_idxs: attempted to index into word"
+>                        ^
+> Warning 27 [unused-var-strict]: unused variable v.
+> File "ll/llinterp.ml", line 245, characters 13-14:
+> 245 |     | Array (n, t), i::idxs' -> loop t idxs' (* Don't check if OOB! *)
+>                    ^
+> Warning 27 [unused-var-strict]: unused variable n.
+> File "ll/llinterp.ml", line 245, characters 20-21:
+> 245 |     | Array (n, t), i::idxs' -> loop t idxs' (* Don't check if OOB! *)
+>                           ^
+> Warning 27 [unused-var-strict]: unused variable i.
+> File "ll/llinterp.ml", line 277, characters 6-7:
+> 277 |     | t, NullId, idxs -> VUndef
+>             ^
+> Warning 27 [unused-var-strict]: unused variable t.
+> File "ll/llinterp.ml", line 277, characters 17-21:
+> 277 |     | t, NullId, idxs -> VUndef
+>                        ^^^^
+> Warning 27 [unused-var-strict]: unused variable idxs.
+> File "ll/llinterp.ml", line 321, characters 36-39:
+> 321 |     | I64, "ll_ltoa", [VInt i; VPtr dst] ->
+>                                           ^^^
+> Warning 27 [unused-var-strict]: unused variable dst.
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Studenttests.cmx -c -impl studenttests.ml)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Assert.cmx -c -impl util/assert.ml)
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__X86.cmx -c -impl x86/x86.ml)
+> File "x86/x86.ml", line 130, characters 10-11:
+> 130 |   | [ Imm i ; dst ] as args ->
+>                 ^
+> Warning 27 [unused-var-strict]: unused variable i.
+> File "x86/x86.ml", line 130, characters 14-17:
+> 130 |   | [ Imm i ; dst ] as args ->
+>                     ^^^
+> Warning 27 [unused-var-strict]: unused variable dst.
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Platform.cmx -c -impl util/platform.ml)
+> File "util/platform.ml", line 77, characters 10-27:
+> 77 |     flush Pervasives.stdout )
+>                ^^^^^^^^^^^^^^^^^
+> Alert deprecated: module Stdlib.Pervasives
+> Use Stdlib instead.
+>
+> If you need to stay compatible with OCaml < 4.07, you can use the 
+> stdlib-shims library: https://github.com/ocaml/stdlib-shims
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -bin-annot -I .main.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/byte/dune__exe__Driver.cmo -c -impl driver.ml)
+> File "driver.ml", line 101, characters 16-29:
+> 101 |                 Llparser.prog Lllexer.token
+>                       ^^^^^^^^^^^^^
+> Error: Unbound module Llparser
+[2]
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Backend.cmx -c -impl backend.ml)
+> File "backend.ml", line 142, characters 8-15:
+> 142 | let rec size_ty (tdecls:(tid * ty) list) (t:Ll.ty) : int =
+>               ^^^^^^^
+> Warning 39 [unused-rec-flag]: unused rec flag.
+> File "backend.ml", line 306, characters 17-41:
+> 306 | let compile_prog {tdecls; gdecls; fdecls} : X86.prog =
+>                        ^^^^^^^^^^^^^^^^^^^^^^^^
+> Warning 9 [missing-record-field-pattern]: the following labels are not bound in this record pattern:
+> edecls
+> Either bind these labels explicitly or add '; _' to the pattern.
+> File "backend.ml", line 92, characters 21-25:
+> 92 | let compile_operand (ctxt:ctxt) (dest:X86.operand) : Ll.operand -> ins =
+>                           ^^^^
+> Warning 27 [unused-var-strict]: unused variable ctxt.
+> File "backend.ml", line 92, characters 33-37:
+> 92 | let compile_operand (ctxt:ctxt) (dest:X86.operand) : Ll.operand -> ins =
+>                                       ^^^^
+> Warning 27 [unused-var-strict]: unused variable dest.
+> File "backend.ml", line 142, characters 17-23:
+> 142 | let rec size_ty (tdecls:(tid * ty) list) (t:Ll.ty) : int =
+>                        ^^^^^^
+> Warning 27 [unused-var-strict]: unused variable tdecls.
+> File "backend.ml", line 142, characters 42-43:
+> 142 | let rec size_ty (tdecls:(tid * ty) list) (t:Ll.ty) : int =
+>                                                 ^
+> Warning 27 [unused-var-strict]: unused variable t.
+> File "backend.ml", line 173, characters 17-21:
+> 173 | let compile_gep (ctxt:ctxt) (op : Ll.ty * Ll.operand) (path: Ll.operand list) : ins list =
+>                        ^^^^
+> Warning 27 [unused-var-strict]: unused variable ctxt.
+> File "backend.ml", line 173, characters 29-31:
+> 173 | let compile_gep (ctxt:ctxt) (op : Ll.ty * Ll.operand) (path: Ll.operand list) : ins list =
+>                                    ^^
+> Warning 27 [unused-var-strict]: unused variable op.
+> File "backend.ml", line 173, characters 55-59:
+> 173 | let compile_gep (ctxt:ctxt) (op : Ll.ty * Ll.operand) (path: Ll.operand list) : ins list =
+>                                                              ^^^^
+> Warning 27 [unused-var-strict]: unused variable path.
+> File "backend.ml", line 201, characters 18-22:
+> 201 | let compile_insn (ctxt:ctxt) ((uid:uid), (i:Ll.insn)) : X86.ins list =
+>                         ^^^^
+> Warning 27 [unused-var-strict]: unused variable ctxt.
+> File "backend.ml", line 201, characters 31-34:
+> 201 | let compile_insn (ctxt:ctxt) ((uid:uid), (i:Ll.insn)) : X86.ins list =
+>                                      ^^^
+> Warning 27 [unused-var-strict]: unused variable uid.
+> File "backend.ml", line 201, characters 42-43:
+> 201 | let compile_insn (ctxt:ctxt) ((uid:uid), (i:Ll.insn)) : X86.ins list =
+>                                                 ^
+> Warning 27 [unused-var-strict]: unused variable i.
+> File "backend.ml", line 224, characters 24-26:
+> 224 | let compile_terminator (fn:string) (ctxt:ctxt) (t:Ll.terminator) : ins list =
+>                               ^^
+> Warning 27 [unused-var-strict]: unused variable fn.
+> File "backend.ml", line 224, characters 36-40:
+> 224 | let compile_terminator (fn:string) (ctxt:ctxt) (t:Ll.terminator) : ins list =
+>                                           ^^^^
+> Warning 27 [unused-var-strict]: unused variable ctxt.
+> File "backend.ml", line 224, characters 48-49:
+> 224 | let compile_terminator (fn:string) (ctxt:ctxt) (t:Ll.terminator) : ins list =
+>                                                       ^
+> Warning 27 [unused-var-strict]: unused variable t.
+> File "backend.ml", line 235, characters 19-21:
+> 235 | let compile_block (fn:string) (ctxt:ctxt) (blk:Ll.block) : ins list =
+>                          ^^
+> Warning 27 [unused-var-strict]: unused variable fn.
+> File "backend.ml", line 235, characters 31-35:
+> 235 | let compile_block (fn:string) (ctxt:ctxt) (blk:Ll.block) : ins list =
+>                                      ^^^^
+> Warning 27 [unused-var-strict]: unused variable ctxt.
+> File "backend.ml", line 235, characters 43-46:
+> 235 | let compile_block (fn:string) (ctxt:ctxt) (blk:Ll.block) : ins list =
+>                                                  ^^^
+> Warning 27 [unused-var-strict]: unused variable blk.
+> File "backend.ml", line 253, characters 13-14:
+> 253 | let arg_loc (n : int) : operand =
+>                    ^
+> Warning 27 [unused-var-strict]: unused variable n.
+> File "backend.ml", line 266, characters 18-22:
+> 266 | let stack_layout (args : uid list) ((block, lbled_blocks):cfg) : layout =
+>                         ^^^^
+> Warning 27 [unused-var-strict]: unused variable args.
+> File "backend.ml", line 266, characters 37-42:
+> 266 | let stack_layout (args : uid list) ((block, lbled_blocks):cfg) : layout =
+>                                            ^^^^^
+> Warning 27 [unused-var-strict]: unused variable block.
+> File "backend.ml", line 266, characters 44-56:
+> 266 | let stack_layout (args : uid list) ((block, lbled_blocks):cfg) : layout =
+>                                                   ^^^^^^^^^^^^
+> Warning 27 [unused-var-strict]: unused variable lbled_blocks.
+> File "backend.ml", line 285, characters 19-25:
+> 285 | let compile_fdecl (tdecls:(tid * ty) list) (name:string) ({ f_ty; f_param; f_cfg }:fdecl) : prog =
+>                          ^^^^^^
+> Warning 27 [unused-var-strict]: unused variable tdecls.
+> File "backend.ml", line 285, characters 44-48:
+> 285 | let compile_fdecl (tdecls:(tid * ty) list) (name:string) ({ f_ty; f_param; f_cfg }:fdecl) : prog =
+>                                                   ^^^^
+> Warning 27 [unused-var-strict]: unused variable name.
+> File "backend.ml", line 285, characters 60-64:
+> 285 | let compile_fdecl (tdecls:(tid * ty) list) (name:string) ({ f_ty; f_param; f_cfg }:fdecl) : prog =
+>                                                                   ^^^^
+> Warning 27 [unused-var-strict]: unused variable f_ty.
+> File "backend.ml", line 285, characters 66-73:
+> 285 | let compile_fdecl (tdecls:(tid * ty) list) (name:string) ({ f_ty; f_param; f_cfg }:fdecl) : prog =
+>                                                                         ^^^^^^^
+> Warning 27 [unused-var-strict]: unused variable f_param.
+> File "backend.ml", line 285, characters 75-80:
+> 285 | let compile_fdecl (tdecls:(tid * ty) list) (name:string) ({ f_ty; f_param; f_cfg }:fdecl) : prog =
+>                                                                                  ^^^^^
+> Warning 27 [unused-var-strict]: unused variable f_cfg.
+> File "backend.ml", line 300, characters 14-16:
+> 300 |   | GBitcast (t1,g,t2) -> compile_ginit g
+>                     ^^
+> Warning 27 [unused-var-strict]: unused variable t1.
+> File "backend.ml", line 300, characters 19-21:
+> 300 |   | GBitcast (t1,g,t2) -> compile_ginit g
+>                          ^^
+> Warning 27 [unused-var-strict]: unused variable t2.
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Llutil.cmx -c -impl ll/llutil.ml)
+> File "ll/llutil.ml", line 134, characters 2-20:
+> 134 |   Pervasives.compare
+>         ^^^^^^^^^^^^^^^^^^
+> Alert deprecated: module Stdlib.Pervasives
+> Use Stdlib instead.
+>
+> If you need to stay compatible with OCaml < 4.07, you can use the 
+> stdlib-shims library: https://github.com/ocaml/stdlib-shims
+> File "ll/llutil.ml", line 132, characters 16-17:
+> 132 |   let del_term (u,t) = ("", t)
+>                       ^
+> Warning 27 [unused-var-strict]: unused variable u.
+$ (cd _build/default && /Users/ojyrkinen/.opam/4.13.1/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -warn-error -A -no-strict-formats -g -I .main.eobjs/byte -I .main.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .main.eobjs/native/dune__exe__Llinterp.cmx -c -impl ll/llinterp.ml)
+> File "ll/llinterp.ml", line 283, characters 16-40:
+> 283 | let interp_prog {tdecls; gdecls; fdecls} (args:string list) : sval =
+>                       ^^^^^^^^^^^^^^^^^^^^^^^^
+> Warning 9 [missing-record-field-pattern]: the following labels are not bound in this record pattern:
+> edecls
+> Either bind these labels explicitly or add '; _' to the pattern.
+> File "ll/llinterp.ml", line 443, characters 8-24:
+> 443 |     let {f_param; f_cfg} = try List.assoc fn fdecls 
+>               ^^^^^^^^^^^^^^^^
+> Warning 9 [missing-record-field-pattern]: the following labels are not bound in this record pattern:
+> f_ty
+> Either bind these labels explicitly or add '; _' to the pattern.
+> File "ll/llinterp.ml", line 47, characters 25-27:
+> 47 |     | _, GBitcast (t1, v,t2) -> mtree_of_gdecl (t1, v)
+>                               ^^
+> Warning 27 [unused-var-strict]: unused variable t2.
+> File "ll/llinterp.ml", line 59, characters 16-17:
+> 59 |     | Array (n, t)  -> MNode Array.(make n (MWord VUndef) |> to_list)
+>                      ^
+> Warning 27 [unused-var-strict]: unused variable t.
+> File "ll/llinterp.ml", line 186, characters 18-19:
+> 186 |      | _,   MWord v  -> failwith "load_idxs: attempted to index into word"
+>                         ^
+> Warning 27 [unused-var-strict]: unused variable v.
+> File "ll/llinterp.ml", line 198, characters 17-18:
+> 198 |      | _,  MWord v  -> failwith "store_idxs: attempted to index into word"
+>                        ^
+> Warning 27 [unused-var-strict]: unused variable v.
+> File "ll/llinterp.ml", line 245, characters 13-14:
+> 245 |     | Array (n, t), i::idxs' -> loop t idxs' (* Don't check if OOB! *)
+>                    ^
+> Warning 27 [unused-var-strict]: unused variable n.
+> File "ll/llinterp.ml", line 245, characters 20-21:
+> 245 |     | Array (n, t), i::idxs' -> loop t idxs' (* Don't check if OOB! *)
+>                           ^
+> Warning 27 [unused-var-strict]: unused variable i.
+> File "ll/llinterp.ml", line 277, characters 6-7:
+> 277 |     | t, NullId, idxs -> VUndef
+>             ^
+> Warning 27 [unused-var-strict]: unused variable t.
+> File "ll/llinterp.ml", line 277, characters 17-21:
+> 277 |     | t, NullId, idxs -> VUndef
+>                        ^^^^
+> Warning 27 [unused-var-strict]: unused variable idxs.
+> File "ll/llinterp.ml", line 321, characters 36-39:
+> 321 |     | I64, "ll_ltoa", [VInt i; VPtr dst] ->
+>                                           ^^^
+> Warning 27 [unused-var-strict]: unused variable dst.

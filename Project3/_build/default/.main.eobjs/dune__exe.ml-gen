@@ -1,0 +1,46 @@
+(** @canonical Dune__exe.Assert *)
+module Assert = Dune__exe__Assert
+
+
+(** @canonical Dune__exe.Backend *)
+module Backend = Dune__exe__Backend
+
+
+(** @canonical Dune__exe.Driver *)
+module Driver = Dune__exe__Driver
+
+
+(** @canonical Dune__exe.Gradedtests *)
+module Gradedtests = Dune__exe__Gradedtests
+
+
+(** @canonical Dune__exe.Ll *)
+module Ll = Dune__exe__Ll
+
+
+(** @canonical Dune__exe.Llinterp *)
+module Llinterp = Dune__exe__Llinterp
+
+
+(** @canonical Dune__exe.Llutil *)
+module Llutil = Dune__exe__Llutil
+
+
+(** @canonical Dune__exe.Main *)
+module Main = Dune__exe__Main
+
+
+(** @canonical Dune__exe.Platform *)
+module Platform = Dune__exe__Platform
+
+
+(** @canonical Dune__exe.Studenttests *)
+module Studenttests = Dune__exe__Studenttests
+
+
+(** @canonical Dune__exe.TestX86 *)
+module TestX86 = Dune__exe__TestX86
+
+
+(** @canonical Dune__exe.X86 *)
+module X86 = Dune__exe__X86
