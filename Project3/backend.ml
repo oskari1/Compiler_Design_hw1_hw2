@@ -277,7 +277,7 @@ let get_uids (entry:block) (lbled_blocks:(lbl * block) list) : (uid list) =
   in
   let entry_insns = get_insns entry in 
   let other_insns = List.concat_map (fun (_, block) -> get_insns block) lbled_blocks in
-  let is_not_store_or_call ((lbl,insn):lbl * insn) : bool = 
+  let is_not_store_or_call ((_,insn):lbl * insn) : bool = 
     match insn with
     | Store (_, _, _) | Call (_, _, _) -> false
     | _ -> true
@@ -287,13 +287,10 @@ let get_uids (entry:block) (lbled_blocks:(lbl * block) list) : (uid list) =
   
 
 let stack_layout (args : uid list) ((block, lbled_blocks):cfg) : layout =
-  let get_indices (uids : uid list) : (int * uid) list = snd (List.fold_left_map (fun acc arg -> (acc + 1, (acc + 1, arg))) 0 uids) in 
+  let get_indexed_list (uids : uid list) : (int * uid) list = snd (List.fold_left_map (fun acc uid -> (acc + 1, (acc + 1, uid))) 0 uids) in 
   let block_uids : uid list = get_uids block lbled_blocks in  
-  let block_uid_idx_pairs = get_indices block_uids in  
-  let arg_idx_pairs = get_indices args in  
-  let uid_list = arg_idx_pairs @ block_uid_idx_pairs in 
-  let get_offset idx = Int64.of_int (-8 * idx) in
-  List.map (fun (idx, uid) -> (uid, Ind3 (Lit (get_offset idx), Rbp))) uid_list
+  let uid_idx_pairs = get_indexed_list (args @ block_uids) in 
+  List.map (fun (idx, uid) -> (uid, Ind3 (Lit (Int64.of_int (-8 * idx)), Rbp))) uid_idx_pairs
 
 (* The code for the entry-point of a function must do several things:
 
