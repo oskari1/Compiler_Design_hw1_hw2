@@ -269,8 +269,31 @@ let arg_loc (n : int) : operand =
    - see the discussion about locals
 
 *)
+
+let get_uids (entry:block) (lbled_blocks:(lbl * block) list) : (uid list) = 
+  let get_insns (block:block) : (lbl * insn) list = 
+    match block with 
+    | {insns = insns; term = _} -> insns 
+  in
+  let entry_insns = get_insns entry in 
+  let other_insns = List.concat_map (fun (_, block) -> get_insns block) lbled_blocks in
+  let is_not_store_or_call ((lbl,insn):lbl * insn) : bool = 
+    match insn with
+    | Store (_, _, _) | Call (_, _, _) -> false
+    | _ -> true
+  in
+  let no_call_or_store_ins = List.filter is_not_store_or_call (entry_insns @ other_insns) in 
+  fst (List.split no_call_or_store_ins) 
+  
+
 let stack_layout (args : uid list) ((block, lbled_blocks):cfg) : layout =
-failwith "stack_layout not implemented"
+  let get_indices (uids : uid list) : (int * uid) list = snd (List.fold_left_map (fun acc arg -> (acc + 1, (acc + 1, arg))) 0 uids) in 
+  let block_uids : uid list = get_uids block lbled_blocks in  
+  let block_uid_idx_pairs = get_indices block_uids in  
+  let arg_idx_pairs = get_indices args in  
+  let uid_list = arg_idx_pairs @ block_uid_idx_pairs in 
+  let get_offset idx = Int64.of_int (-8 * idx) in
+  List.map (fun (idx, uid) -> (uid, Ind3 (Lit (get_offset idx), Rbp))) uid_list
 
 (* The code for the entry-point of a function must do several things:
 
